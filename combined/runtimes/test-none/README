@@ -1,0 +1,2 @@
+This runtime mounts /dev/vdb then takes a snapshot.
+After the snapshot point, the runtime reads from the mounted appfs

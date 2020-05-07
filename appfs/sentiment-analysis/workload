@@ -1,0 +1,26 @@
+import json
+import nltk
+from textblob import TextBlob
+
+nltk.data.path = ['/srv/package/nltk_data']
+
+def handle(request):
+    #json_file = '/srv/declaration.json'
+
+    #with open(json_file, 'r') as f:
+    #  json_data = json.load(f)
+
+    try:
+        analyse = TextBlob(request['analyse'])
+    except:
+        return {'Error' : 'Input parameters should include a string to sentiment analyse.'}
+
+    sentences = len(analyse.sentences)
+
+    retVal = {}
+
+    retVal["subjectivity"] = sum([sentence.sentiment.subjectivity for sentence in analyse.sentences]) / sentences
+    retVal["polarity"] = sum([sentence.sentiment.polarity for sentence in analyse.sentences]) / sentences
+    retVal["sentences"] = sentences
+
+    return retVal

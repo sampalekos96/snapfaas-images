@@ -1,0 +1,6 @@
+const Image = require(`${__dirname}/image`);
+
+exports.handle = function(request, respond) {
+    var i = new Image(`${__dirname}/libertybell.jpg`);
+    return i.generate().then((response) => respond(response));
+}

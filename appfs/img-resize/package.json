@@ -1,0 +1,17 @@
+{
+  "name": "img-resize",
+  "version": "1.0.0",
+  "description": "This image resize is a lightly modified version of what is shown in [this blog post](https://www.thepolyglotdeveloper.com/2017/12/convert-nodejs-restful-api-serverless-openwhisk/) with a fix from [here](https://github.com/oliver-moran/jimp/issues/90)",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^0.4.0",
+    "node-zip": "^1.1.1"
+  },
+  "devDependencies": {}
+}

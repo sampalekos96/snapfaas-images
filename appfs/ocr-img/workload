@@ -1,0 +1,9 @@
+process.env.LD_LIBRARY_PATH=`${__dirname}/tesseract/lib`;
+process.env.TESSDATA_PREFIX=`${__dirname}/tesseract/share/tessdata`;
+const tesseract = require('tesseractocr');
+
+exports.handle = function(request, respond) {
+  tesseract.recognize(`${__dirname}/pitontable.png`, {execPath: `${__dirname}/tesseract/bin/tesseract`},
+    (err, text) => respond({"words": text.split(/[ \n]+/)}));
+
+}
