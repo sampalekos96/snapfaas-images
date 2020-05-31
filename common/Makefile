@@ -10,6 +10,3 @@ outl: outl.c
 
 do-snapshot: do-snapshot.c
 	echo "apk add alpine-sdk linux-headers; gcc -o /common/do-snapshot /common/do-snapshot.c" | docker run -i --rm -v $(mkfile_path):/common alpine
-
-do-snapshot-fat: do-snapshot-fat.c
-	echo "apk add alpine-sdk linux-headers; gcc -o /common/do-snapshot-fat /common/do-snapshot-fat.c" | docker run -i --rm -v $(mkfile_path):/common alpine
