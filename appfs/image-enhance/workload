@@ -1,0 +1,20 @@
+from PIL import ImageEnhance, Image
+import os
+
+def handle(request):
+    imgpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), request['img'])
+    img = Image.open(imgpath)
+    op = request['op']
+    if op == 'color':
+        enhancer = ImageEnhance.Color(img)
+    elif op == 'contrast':
+        enhancer = ImageEnhance.Contrast(img)
+    elif op == 'brightness':
+        enhancer = ImageEnhance.Brightness(img)
+    elif op == 'sharpness':
+        enhancer = ImageEnhance.Sharpness(img)
+    else:
+        return {'success': 0, 'error': 'unknown enhancement mode'}
+    factor = float(request['factor'])
+    enhanced_img = enhancer.enhance(factor)
+    return {'success': 1}
