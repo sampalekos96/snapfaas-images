@@ -1,6 +1,6 @@
 mkfile_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-all: nc-vsock outl do-snapshot do-snapshot-fat
+all: nc-vsock outl do-snapshot
 
 nc-vsock: nc-vsock.c
 	echo "apk add alpine-sdk linux-headers; gcc -o /common/nc-vsock /common/nc-vsock.c" | docker run -i --rm -v $(mkfile_path):/common alpine
