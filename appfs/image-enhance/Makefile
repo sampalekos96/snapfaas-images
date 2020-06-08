@@ -6,10 +6,11 @@ package: requirements.txt
 	mkdir -p package
 	echo "apk add musl-dev gcc zlib-dev jpeg-dev python2 python2-dev py2-pip; pip2 install --upgrade --target ./package -r requirements.txt" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
 
-library:
-	echo "apk add jpeg zlib; cp /usr/lib/libjpeg* /app" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
+lib:
+	mkdir -p lib
+	echo "apk add jpeg zlib; cp -r /usr/lib/* /app/lib" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
 
-output.ext2: workload package library
+output.ext2: workload package lib
 	rm -rf output.ext2 /tmp/lorem.out/
 	mkdir -p /tmp/lorem.out/
 	touch output.ext2

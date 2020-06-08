@@ -5,7 +5,10 @@ all: output.ext2
 tesseract: compile_tesseract.sh
 	echo "/srv/compile_tesseract.sh" | docker run -i --rm -v $(mkfile_path):/srv -w /tmp alpine
 
-output.ext2: tesseract
+lib:
+	mkdir -p lib
+
+output.ext2: lib tesseract
 	rm -rf output.ext2 /tmp/lorem.out/
 	mkdir -p /tmp/lorem.out/
 	touch output.ext2

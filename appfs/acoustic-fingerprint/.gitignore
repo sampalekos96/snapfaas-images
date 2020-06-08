@@ -3,3 +3,4 @@ bin
 include
 output.ext2
 package
+pkgconfig
