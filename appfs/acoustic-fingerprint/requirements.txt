@@ -1,0 +1,2 @@
+pyacoustid==1.2.0
+audioread==2.1.8
