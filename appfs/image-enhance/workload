@@ -15,6 +15,6 @@ def handle(request):
         enhancer = ImageEnhance.Sharpness(img)
     else:
         return {'success': 0, 'error': 'unknown enhancement mode'}
-    factor = float(request['factor'])
+    factor = request['factor']
     enhanced_img = enhancer.enhance(factor)
     return {'success': 1}

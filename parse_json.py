@@ -17,6 +17,8 @@ for fname in args.files.split(','):
         sets.append(set(json.loads(lines[0])))
 
 assert(len(sets) >= 2)
-common_set = sets[0] & sets[1]
+common_set = sets[0]
+for i in range(len(sets) - 1):
+    common_set &= sets[i+1]
 
 print("# of common pages exec accessed: {}".format(len(common_set)))

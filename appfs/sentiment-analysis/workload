@@ -1,26 +1,28 @@
 import json
 import nltk
 from textblob import TextBlob
+from textblob.sentiments import NaiveBayesAnalyzer
 
 nltk.data.path = ['/srv/package/nltk_data']
 
 def handle(request):
-    #json_file = '/srv/declaration.json'
-
-    #with open(json_file, 'r') as f:
-    #  json_data = json.load(f)
-
-    try:
+    if 'analyzer' in request:
+        analyse = TextBlob(request['analyse'], analyzer=NaiveBayesAnalyzer())
+    else:
         analyse = TextBlob(request['analyse'])
-    except:
-        return {'Error' : 'Input parameters should include a string to sentiment analyse.'}
 
     sentences = len(analyse.sentences)
 
-    retVal = {}
+    results = []
+    for sentence in analyse.sentences:
+        if 'analyzer' in request:
+            result = (sentence.sentiment.classification, sentence.sentiment.p_pos, sentence.sentiment.p_neg)
+        else:
+            result = (sentence.sentiment.subjectivity, sentence.sentiment.polarity)
+        results.append(result)
 
-    retVal["subjectivity"] = sum([sentence.sentiment.subjectivity for sentence in analyse.sentences]) / sentences
-    retVal["polarity"] = sum([sentence.sentiment.polarity for sentence in analyse.sentences]) / sentences
+    retVal = {}
+    retVal["results"] = results
     retVal["sentences"] = sentences
 
     return retVal

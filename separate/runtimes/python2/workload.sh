@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-python2 /bin/runtime-workload.py
+LD_LIBRARY_PATH=/srv/lib python2 /bin/runtime-workload.py

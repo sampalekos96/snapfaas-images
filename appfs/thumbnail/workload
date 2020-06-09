@@ -1,0 +1,8 @@
+from PIL import Image
+import os
+
+def handle(request):
+    imgpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), request['img'])
+    img = Image.open(imgpath)
+    img.thumbnail(request['size'])
+    return {'success': 1}
