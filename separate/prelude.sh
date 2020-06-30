@@ -3,6 +3,7 @@ apk add openrc util-linux
 cp /common/nc-vsock /usr/bin/nc-vsock
 cp /common/outl /usr/bin/outl
 cp /common/do-snapshot /usr/bin/do-snapshot
+cp /common/setup-eth0.sh /usr/bin/setup-eth0.sh
 
 ## Create start script for that mounts the appfs and invokes whatever binary is in /srv/workload
 printf '#!/bin/sh\n
