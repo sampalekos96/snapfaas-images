@@ -30,7 +30,16 @@ static PyMethodDef DummyMethods[] =
     {NULL, NULL, 0, NULL}
 };
 
+static struct PyModuleDef dummymodule = {
+    PyModuleDef_HEAD_INIT,
+    "dummy_array",  /* name of module */
+    NULL,           /* module documentation, may be NULL */
+    -1,             /* size of per-interpreter state of the module,
+                     or -1 if the module keeps state in global variables. */
+    DummyMethods
+};
+
 PyMODINIT_FUNC
-initdummy_array(void) {
-    (void) Py_InitModule("dummy_array", DummyMethods);
+PyInit_dummy_array(void) {
+    return PyModule_Create(&dummymodule);
 }
