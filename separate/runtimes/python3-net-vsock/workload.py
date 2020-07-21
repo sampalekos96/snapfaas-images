@@ -28,19 +28,20 @@ spec = importlib.util.spec_from_file_location("app", "/srv/workload")
 app = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(app)
 
-## for function diff snapshot
-#for i in range(1, mp.cpu_count()):
-#    Popen('taskset -c %d outl 124 0x3f0'%(i), shell=True)
-#call('taskset -c 0 do-snapshot 126', shell=True)
+# for function diff snapshot
+for i in range(1, os.cpu_count()):
+    Popen('taskset -c %d outl 124 0x3f0'%(i), shell=True)
+run('taskset -c 0 do-snapshot 126', shell=True)
 
 sock.connect(hostaddr)
-#while True:
-#    request = json.loads(sock.readline())
-#
-#    response = app.handle(request)
-#
-#    responseJson = json.dumps(response)
-#
-#    out.write(struct.pack(">I", len(responseJson)))
-#    out.write(bytes(responseJson))
-#    out.flush()
+while True:
+    data = sock.recv(4, socket.MSG_WAITALL)
+    size, _ = struct.unpack(">I", data)
+    requestJson = sock.recv(size, socket.MSG_WAITALL).decode("utf-8")
+    request = json.loads(requestJson)
+
+    response = app.handle(request)
+
+    responseJson = json.dumps(response)
+    sock.sendall(struct.pack(">I", len(responseJson)))
+    sock.sendall(bytes(responseJson, "utf-8"))
