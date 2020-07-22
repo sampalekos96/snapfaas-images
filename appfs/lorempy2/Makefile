@@ -3,8 +3,7 @@ mkfile_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 all: output.ext2
 
 package: workload requirements.txt
-	[ -d 'package' ] && rm -r package
-	mkdir package
+	mkdir -p package
 	echo "apk add python2 python2-dev py2-pip; pip2 install --target ./package -r requirements.txt" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
 
 output.ext2: package

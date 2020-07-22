@@ -1,4 +1,0 @@
-import dummy_array
-dummy_array.alloc_array(7 << 20)
-def handle(obj):
-    return {}
