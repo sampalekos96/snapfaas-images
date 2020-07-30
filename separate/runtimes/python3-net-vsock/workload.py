@@ -36,8 +36,8 @@ run('taskset -c 0 do-snapshot 126', shell=True)
 sock.connect(hostaddr)
 while True:
     data = sock.recv(4, socket.MSG_WAITALL)
-    size, _ = struct.unpack(">I", data)
-    requestJson = sock.recv(size, socket.MSG_WAITALL).decode("utf-8")
+    res = struct.unpack(">I", data)
+    requestJson = sock.recv(res[0], socket.MSG_WAITALL).decode("utf-8")
     request = json.loads(requestJson)
 
     response = app.handle(request)
