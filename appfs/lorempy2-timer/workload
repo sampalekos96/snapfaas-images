@@ -5,5 +5,5 @@ def handle(obj):
     try:
         time.sleep(0.5)
     except IOError as e:
-        print 'I/O error({0}): {1}'.format(e.errno, e.strerror)
+        print('I/O error({0}): {1}'.format(e.errno, e.strerror))
     return {'request': obj, 'body': lorem.sentence()}

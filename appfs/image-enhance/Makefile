@@ -3,12 +3,12 @@ mkfile_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 all: output.ext2
 
 package: requirements.txt
-	mkdir -p package
-	echo "apk add musl-dev gcc zlib-dev jpeg-dev python2 python2-dev py2-pip; pip2 install --upgrade --target ./package -r requirements.txt" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
+	test -d package || mkdir package
+	echo "apk add musl-dev gcc zlib-dev jpeg-dev python3 python3-dev py3-pip; pip3 install --upgrade --target ./package -r requirements.txt" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine:3.10
 
 lib:
-	mkdir -p lib
-	echo "apk add jpeg zlib; cp -r /usr/lib/* /app/lib" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
+	test -d lib || mkdir lib
+	echo "apk add jpeg zlib; cp -r /usr/lib/* /app/lib" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine:3.10
 
 output.ext2: workload package lib
 	rm -rf output.ext2 /tmp/lorem.out/
@@ -19,3 +19,8 @@ output.ext2: workload package lib
 	sudo mount output.ext2 /tmp/lorem.out/
 	sudo cp -r *.jpg lib package workload /tmp/lorem.out/
 	sudo umount /tmp/lorem.out
+
+clean:
+	sudo rm -r package
+	sudo rm -r lib
+	sudo rm output.ext2

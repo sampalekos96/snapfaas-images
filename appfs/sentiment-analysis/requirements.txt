@@ -1,2 +1,2 @@
-nltk==3.4.5
-textblob
+nltk==3.5
+textblob==0.15.3
