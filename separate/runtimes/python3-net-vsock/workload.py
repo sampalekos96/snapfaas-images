@@ -31,7 +31,7 @@ spec.loader.exec_module(app)
 # for function diff snapshot
 for i in range(1, os.cpu_count()):
     Popen('taskset -c %d outl 124 0x3f0'%(i), shell=True)
-run('taskset -c 0 do-snapshot 126', shell=True)
+run('taskset -c 0 outl 124 0x3f0', shell=True)
 
 sock.connect(hostaddr)
 while True:

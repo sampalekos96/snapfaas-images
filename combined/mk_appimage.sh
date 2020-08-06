@@ -90,7 +90,7 @@ sudo mount $APP/output.ext2 $APPTMPDIR
 
 ## Execute the prelude, runtime script and postscript inside an Alpine docker container
 ## with the target root file system shared at `/my-rootfs` inside the container.
-cat prelude.sh $DEBUG $RUNTIME/rootfs.sh postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine
+cat prelude.sh $DEBUG $RUNTIME/rootfs.sh postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine:3.10
 
 ## Cleanup
 sudo umount $TMPDIR

@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-mount -o ro -t ext2 /dev/vdb /srv
-echo 3 > /proc/sys/vm/drop_caches
-outl 124 0x3f0
-cat /srv/README
-outl 126 0x3f0
