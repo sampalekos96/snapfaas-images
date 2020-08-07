@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "jimp": "^0.4.0",
-    "node-zip": "^1.1.1"
+    "node-zip": "^1.1.1",
+    "jpeg-js": ">=0.4.0",
+    "minimist": ">=0.2.1"
   },
   "devDependencies": {}
 }
