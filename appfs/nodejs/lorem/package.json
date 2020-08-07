@@ -1,7 +1,7 @@
 {
   "name": "app",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is lorem application in Node.js",
   "main": "workload",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,5 +9,6 @@
   "author": "",
   "dependencies": {
     "lorem-ipsum": "^2.0.3"
-  }
+  },
+  "license": "ISC"
 }
