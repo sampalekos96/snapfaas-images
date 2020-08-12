@@ -3,7 +3,7 @@ mkfile_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 all: output.ext2
 
 node_modules: package.json workload
-	[ -d 'node_modules' ] && rm -r node_modules
+	[ -d 'node_modules' ] && rm -r node_modules || true
 	mkdir node_modules
 	echo "apk add nodejs npm; npm install" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
 
