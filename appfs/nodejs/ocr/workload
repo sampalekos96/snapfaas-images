@@ -3,7 +3,15 @@ process.env.TESSDATA_PREFIX=`${__dirname}/tesseract/share/tessdata`;
 const tesseract = require('tesseractocr');
 
 exports.handle = function(request, respond) {
-  tesseract.recognize(`${__dirname}/pitontable.png`, {execPath: `${__dirname}/tesseract/bin/tesseract`},
-    (err, text) => respond({"words": text.split(/[ \n]+/)}));
-
+    tesseract.recognize(
+        `${__dirname}/${request["img"]}`,
+        {execPath: `${__dirname}/tesseract/bin/tesseract`},
+        (err, text) => {
+            if (err) {
+                respond({"error": err});
+                return;
+            }
+            respond({"words": text.split(/[ \n]+/)})
+        }
+    );
 }

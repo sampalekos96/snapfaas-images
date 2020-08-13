@@ -2,7 +2,7 @@
   "name": "ocr-img",
   "version": "1.0.0",
   "description": "This function makes use of the open source [tesseract OCR engine](https://github.com/tesseract-ocr/tesseract) and a javascript wrapper for it called [tesseractocr](https://www.npmjs.com/package/tesseractocr).",
-  "main": "handler.js",
+  "main": "workload",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "tesseractocr": "^1.2.1"
-  }
+  },
+  "devDependencies": {}
 }

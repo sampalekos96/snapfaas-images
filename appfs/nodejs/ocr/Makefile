@@ -10,7 +10,7 @@ tesseract: compile_tesseract.sh
 	echo "/srv/compile_tesseract.sh" | docker run -i --rm -v $(mkfile_path):/srv -w /tmp alpine
 
 test:
-	echo "apk add nodejs; node -e 'const app = require(\"./workload\"); app.handle({}, console.log);'" | docker run -i --rm -v $(mkfile_path):/srv -w /srv alpine
+	echo "apk add nodejs; node -e 'const app = require(\"./workload\"); app.handle({\"img\": \"pitontable.png\"}, console.log);'" | docker run -i --rm -v $(mkfile_path):/srv -w /srv alpine
 
 output.ext2: node_modules tesseract
 	rm -rf output.ext2 /tmp/lorem.out/
@@ -19,5 +19,5 @@ output.ext2: node_modules tesseract
 	truncate -s 200M output.ext2
 	mkfs.ext2 output.ext2
 	sudo mount output.ext2 /tmp/lorem.out/
-	sudo cp -r tesseract node_modules workload pitontable.png README /tmp/lorem.out/
+	sudo cp -r tesseract node_modules workload pitontable.png /tmp/lorem.out/
 	sudo umount /tmp/lorem.out/
