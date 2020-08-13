@@ -18,7 +18,7 @@ hostaddr = (socket.VMADDR_CID_HOST, VSOCKPORT)
 # for language snapshot
 for i in range(1, os.cpu_count()):
     Popen('taskset -c {} outl 124 0x3f0'.format(i), shell=True)
-run('taskset -c 0 do-snapshot 123', shell=True)
+run('taskset -c 0 outl 124 0x3f0', shell=True)
 
 # mount appfs and load application
 run(["mount", "-r", "/dev/vdb", "/srv"], executable="/bin/mount")
