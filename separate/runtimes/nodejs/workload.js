@@ -9,7 +9,7 @@ const cpu_count = require("os").cpus().length;
 for (var i = 1; i < cpu_count; i++) {
     exec(`taskset -c ${i} outl 124 0x3f0`);
 }
-execSync('taskset -c 0 do-snapshot 123')
+execSync('taskset -c 0 outl 124 0x3f0')
 
 execSync("mount -r /dev/vdb /srv");
 
@@ -19,7 +19,7 @@ const app = require("/srv/workload");
 for (var i = 1; i < cpu_count; i++) {
     exec(`taskset -c ${i} outl 124 0x3f0`);
 }
-execSync('taskset -c 0 do-snapshot 126')
+execSync('taskset -c 0 outl 124 0x3f0')
 
 const sock_conn = vsock.connect(2, 1234);
 
