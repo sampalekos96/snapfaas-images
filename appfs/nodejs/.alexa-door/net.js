@@ -11,6 +11,7 @@ function SendRequest(url, body) {
         }, function (error, response, body) {
             if(error) {
                 reject(error);
+                return;
             }
             console.log('device resp: ' + JSON.stringify(body));
             resolve(body);
