@@ -13,7 +13,7 @@ output.ext4: node_modules image.js
 	rm -rf output.ext4 /tmp/lorem.out/
 	mkdir -p /tmp/lorem.out/
 	touch output.ext4
-	truncate -s 30M output.ext4
+	truncate -s 50M output.ext4
 	mkfs.ext4 output.ext4
 	sudo mount output.ext4 /tmp/lorem.out/
 	sudo cp -r node_modules workload image.js libertybell.jpg /tmp/lorem.out/
