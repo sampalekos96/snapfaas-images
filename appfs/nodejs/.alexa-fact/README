@@ -1,0 +1,2 @@
+port from: https://github.com/alexa/skill-sample-nodejs-fact
+example request see resources/requests/alexa-fact-nodejs.json
