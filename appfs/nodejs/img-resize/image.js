@@ -19,30 +19,6 @@ class Image {
 					console.log(error)
                 }
                 var images = [];
-                images.push(image.resize(196, 196).getBufferAsync(Jimp.AUTO).then(result => {
-                    return new Promise((resolve, reject) => {
-                        resolve({
-                            size: "xxxhdpi",
-                            data: result
-                        });
-                    });
-                }));
-                images.push(image.resize(144, 144).getBufferAsync(Jimp.AUTO).then(result => {
-                    return new Promise((resolve, reject) => {
-                        resolve({
-                            size: "xxhdpi",
-                            data: result
-                        });
-                    });
-                }));
-                images.push(image.resize(96, 96).getBufferAsync(Jimp.AUTO).then(result => {
-                    return new Promise((resolve, reject) => {
-                        resolve({
-                            size: "xhdpi",
-                            data: result
-                        });
-                    });
-                }));
                 images.push(image.resize(72, 72).getBufferAsync(Jimp.AUTO).then(result => {
                     return new Promise((resolve, reject) => {
                         resolve({
