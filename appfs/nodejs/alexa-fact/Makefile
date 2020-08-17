@@ -7,7 +7,7 @@ node_modules: package.json workload
 	mkdir node_modules
 	echo "apk add nodejs npm; npm install" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
 
-output.ext2: ../alexa-infra node_modules
+output.ext2: ../.alexa-infra node_modules
 	rm -rf output.ext2 /tmp/lorem.out/
 	mkdir -p /tmp/lorem.out/
 	touch output.ext2
