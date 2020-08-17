@@ -1,0 +1,6 @@
+const handler = require('./handler').handler
+
+exports.handle = async function (request) {
+  return await handler.invoke(request);
+}
+
