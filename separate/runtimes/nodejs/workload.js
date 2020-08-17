@@ -23,14 +23,16 @@ execSync('taskset -c 0 outl 124 0x3f0')
 
 const sock_conn = vsock.connect(2, 1234);
 
-while(true) {
-  const req = vsock.readRequest(sock_conn);
-  const hrstart = process.hrtime()
-  app.handle(req, function(resp) {
+(async function() {
+  while (true) {
+    const req = await vsock.readRequest(sock_conn);
+
+    const hrstart = process.hrtime();
+    const resp = await app.handle(req);
     const hrend = process.hrtime(hrstart)
     resp.runtime_sec = hrend[0];
     resp.runtime_ms = hrend[1] / 1000000;
-    vsock.writeResponse(sock_conn, resp);
-  });
-}
+    await vsock.writeResponse(sock_conn, resp);
+  }
+})();
 

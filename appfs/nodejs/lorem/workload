@@ -1,8 +1,8 @@
 const { loremIpsum } = require('lorem-ipsum');
 
-exports.handle = function(request, respond) {
-  respond({
+exports.handle = async function(request) {
+  return {
     request: request,
     sentence: loremIpsum()
-  });
+  };
 }

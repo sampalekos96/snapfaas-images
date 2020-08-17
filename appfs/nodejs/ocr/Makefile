@@ -19,5 +19,5 @@ output.ext2: node_modules tesseract
 	truncate -s 200M output.ext2
 	mkfs.ext2 output.ext2
 	sudo mount output.ext2 /tmp/lorem.out/
-	sudo cp -r tesseract node_modules workload pitontable.png /tmp/lorem.out/
+	sudo cp -r tesseract node_modules workload linuxboot.png pitontable.png /tmp/lorem.out/
 	sudo umount /tmp/lorem.out/

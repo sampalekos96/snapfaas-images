@@ -2,16 +2,18 @@ process.env.LD_LIBRARY_PATH=`${__dirname}/tesseract/lib`;
 process.env.TESSDATA_PREFIX=`${__dirname}/tesseract/share/tessdata`;
 const tesseract = require('tesseractocr');
 
-exports.handle = function(request, respond) {
+exports.handle = function(request) {
+  return new Promise((resolve, reject) => {
     tesseract.recognize(
         `${__dirname}/${request["img"]}`,
         {execPath: `${__dirname}/tesseract/bin/tesseract`},
         (err, text) => {
-            if (err) {
-                respond({"error": err});
-                return;
-            }
-            respond({"words": text.split(/[ \n]+/)})
+          if (err) {
+            resolve({"error": err});
+          } else {
+            resolve({"words": text.split(/[ \n]+/)})
+          }
         }
     );
+  });
 }
