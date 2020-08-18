@@ -6,7 +6,10 @@ exports.handle = function(request) {
   return new Promise((resolve, reject) => {
     tesseract.recognize(
         `${__dirname}/${request["img"]}`,
-        {execPath: `${__dirname}/tesseract/bin/tesseract`},
+        {
+          execPath: `${__dirname}/tesseract/bin/tesseract`,
+          tessdataDir: `${__dirname}/tesseract/share/tessdata`
+        },
         (err, text) => {
           if (err) {
             resolve({"error": err});

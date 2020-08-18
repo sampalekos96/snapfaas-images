@@ -2,7 +2,7 @@
 
 set -e
 
-apk add git alpine-sdk cmake make autoconf libtool automake libjpeg-turbo-dev tiff-dev libpng-dev zlib-dev giflib-dev libwebp-dev
+apk add git alpine-sdk cmake make autoconf libtool automake libjpeg-turbo-dev tiff-dev libpng-dev zlib-dev giflib-dev libwebp-dev libgcc libstdc++
 
 export INSTALL_PREFIX=/srv/tesseract
 
@@ -34,4 +34,5 @@ cp /usr/lib/libpng* /srv/tesseract/lib
 cp /usr/lib/libtiff* /srv/tesseract/lib
 cp /usr/lib/libwebp* /srv/tesseract/lib
 cp /usr/lib/libgif* /srv/tesseract/lib
-
+cp /usr/lib/libgcc* /srv/tesseract/lib
+cp /usr/lib/libstdc++* /srv/tesseract/lib

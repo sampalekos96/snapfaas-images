@@ -4,13 +4,13 @@ all: output.ext2
 
 node_modules: package.json workload
 	mkdir -p node_modules
-	echo "apk add nodejs npm; npm install" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
+	echo "apk add nodejs npm; npm install" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine:3.10
 
 tesseract: compile_tesseract.sh
-	echo "/srv/compile_tesseract.sh" | docker run -i --rm -v $(mkfile_path):/srv -w /tmp alpine
+	echo "/srv/compile_tesseract.sh" | docker run -i --rm -v $(mkfile_path):/srv -w /tmp alpine:3.10
 
 test:
-	echo "apk add nodejs; node -e 'const app = require(\"./workload\"); app.handle({\"img\": \"pitontable.png\"}, console.log);'" | docker run -i --rm -v $(mkfile_path):/srv -w /srv alpine
+	echo "apk add nodejs; node -e 'const app = require(\"./workload\"); app.handle({\"img\": \"pitontable.png\"}, console.log);'" | docker run -i --rm -v $(mkfile_path):/srv -w /srv alpine:3.10
 
 output.ext2: node_modules tesseract
 	rm -rf output.ext2 /tmp/lorem.out/
