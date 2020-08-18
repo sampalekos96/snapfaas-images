@@ -18,3 +18,6 @@ rc-update add serverless-workload default
 ## Add /dev and /proc file systems to openrc's boot
 rc-update add devfs boot
 rc-update add procfs boot
+
+## specify default system library path
+echo '/srv/lib:/lib:/usr/local/lib:/usr/lib' > /etc/ld-musl-$(uname -m).path

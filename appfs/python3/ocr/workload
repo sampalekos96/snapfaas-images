@@ -9,13 +9,12 @@ DATA_DIR=os.path.join(TESS_DIR, 'share', 'tessdata')
 
 def handle(request):
     imgfilepath = os.path.join(SCRIPT_DIR, request['img'])
-    jsonfilepath = os.path.join(SCRIPT_DIR, 'result')
     command = 'LD_LIBRARY_PATH={} TESSDATA_PREFIX={} {} {} {}'.format(
         LIB_DIR,
         DATA_DIR,
         BINARY,
         imgfilepath,
-        jsonfilepath,
+        'stdout',
     )
 
     try:
