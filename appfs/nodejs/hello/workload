@@ -1,0 +1,5 @@
+exports.handle = async function(request) {
+  return {
+    'body': 'hello, world!'
+  };
+}
