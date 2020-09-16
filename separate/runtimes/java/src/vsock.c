@@ -4,10 +4,10 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <linux/vm_sockets.h>
-#include "com_sns_VSock.h"
+#include "edu_princeton_sns_VSock.h"
 
 
-JNIEXPORT jint JNICALL Java_com_sns_VSock_vsock_1connect
+JNIEXPORT jint JNICALL Java_edu_princeton_sns_VSock_vsock_1connect
   (JNIEnv *env, jobject thisObj, jint cid, jint port) {
 
   	int fd;
@@ -38,7 +38,7 @@ JNIEXPORT jint JNICALL Java_com_sns_VSock_vsock_1connect
 	this is a lazy implementation which assumes no more than 1023 chars
 	need to modify later
 */
-JNIEXPORT jstring JNICALL Java_com_sns_VSock_vsock_1read
+JNIEXPORT jstring JNICALL Java_edu_princeton_sns_VSock_vsock_1read
   (JNIEnv *env, jobject thisObj, jint fd) {
 
   	char recv_byte[LEN_BUFF];
@@ -55,7 +55,7 @@ JNIEXPORT jstring JNICALL Java_com_sns_VSock_vsock_1read
   	return (*env)->NewStringUTF(env, recv_str);
 }
 
-JNIEXPORT void JNICALL Java_com_sns_VSock_vsock_1write
+JNIEXPORT void JNICALL Java_edu_princeton_sns_VSock_vsock_1write
   (JNIEnv *env, jobject thisObj, jint fd, jstring jsend) {
 
   	const char *csend = (*env)->GetStringUTFChars(env, jsend, NULL);
@@ -86,7 +86,7 @@ JNIEXPORT void JNICALL Java_com_sns_VSock_vsock_1write
   	return;
 }
 
-JNIEXPORT void JNICALL Java_com_sns_VSock_vscok_1close
+JNIEXPORT void JNICALL Java_edu_princeton_sns_VSock_vscok_1close
   (JNIEnv *env, jobject thisObj, jint fd) {
 
   	close(fd);

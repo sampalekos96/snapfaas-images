@@ -7,14 +7,53 @@ import java.lang.reflect.Method;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import com.sns.VSock;
+import edu.princeton.sns.VSock;
 
 public class runtime_workload {
 
     private static int SERVER_PORT = 1234;
     private static int VMADDR_CID_HOST = 2;
 
+    public static void addJar(URL url) throws Exception {
+
+        URLClassLoader classLoader
+                = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        Class clazz= URLClassLoader.class;
+
+        // Use reflection
+        Method method= clazz.getDeclaredMethod("addURL", new Class[] { URL.class });
+        method.setAccessible(true);
+        method.invoke(classLoader, new Object[] { url });
+    }
+
     public static void main(String[] argv) {
+
+	    /* for language snapshot */
+        int cores = Runtime.getRuntime().availableProcessors();
+        try {
+            Process[] proc_list = new Process[cores];
+            for (int i=1; i<cores; i++) {
+                proc_list[i] = Runtime.getRuntime().exec(String.format("taskset -c %d outl 124 0x3f0", i));
+            }
+            proc_list[0] = Runtime.getRuntime().exec("taskset -c 0 outl 124 0x3f0");
+            int exitVal = proc_list[0].waitFor();
+            assert  exitVal == 0: "Err in enabling language snapshot";
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+
+        /* mount appfs */
+	    try {
+            Process process = Runtime.getRuntime().exec("mount -r /dev/vdb /srv");
+            int exitVal = process.waitFor();
+            assert  exitVal == 0: "Err in mounting appfs";
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
 
         /* load application */
         File file = null;
@@ -39,9 +78,26 @@ public class runtime_workload {
             System.out.println(e);
             System.exit(1);
         }
+	
+	    /* load application jar dependecies */
+	    File pkg_names = new File("/srv/package");
+        try {
+            if (pkg_names.length() > 0) {
+                for (String pkg: pkg_names.list()) {
+                    if (pkg.endsWith(".jar")) {
+                        pkg = "/srv/package/"+pkg;
+                        System.out.println(pkg);
+                        addJar(new File(pkg).toURI().toURL());
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getCause());
+            System.exit(-1);
+        }
 
         /* for function diff snapshot */
-	int cores = Runtime.getRuntime().availableProcessors();
         try {
             Process[] proc_list = new Process[cores];
             for (int i=1; i<cores; i++) {

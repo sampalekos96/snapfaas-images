@@ -1,5 +1,5 @@
 
-package com.sns;
+package edu.princeton.sns;
 
 import java.io.BufferedReader;
 import java.io.IOException;
