@@ -86,7 +86,7 @@ public class runtime_workload {
                 for (String pkg: pkg_names.list()) {
                     if (pkg.endsWith(".jar")) {
                         pkg = "/srv/package/"+pkg;
-                        System.out.println(pkg);
+                        // System.out.println(pkg);
                         addJar(new File(pkg).toURI().toURL());
                     }
                 }
