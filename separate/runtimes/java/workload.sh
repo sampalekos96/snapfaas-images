@@ -3,4 +3,4 @@
 /usr/bin/setup-eth0.sh
 /usr/bin/ioctl
 
-java -cp ".:/bin/*" -Djava.library.path=/bin bin.runtime_workload
+java -cp ".:/bin:/lib/json-simple-1.1.1.jar:/lib/VSock.jar" RuntimeWorkload

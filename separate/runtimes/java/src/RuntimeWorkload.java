@@ -1,6 +1,3 @@
-
-package bin;
-
 import java.net.*;
 import java.io.*;
 import java.lang.reflect.Method;
@@ -9,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import edu.princeton.sns.VSock;
 
-public class runtime_workload {
+public class RuntimeWorkload {
 
     private static int SERVER_PORT = 1234;
     private static int VMADDR_CID_HOST = 2;
