@@ -4,7 +4,7 @@ all: workload.class output.ext2
 
 .PHONY: workload.java
 workload.class:
-	echo "apk add openjdk8; /usr/lib/jvm/java-1.8-openjdk/bin/javac -cp \".:package/*:../.package/*\" workload.java" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine
+	echo "apk add openjdk8; /usr/lib/jvm/java-1.8-openjdk/bin/javac -cp \".:package/*:../.package/*\" workload.java" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine:3.10
 
 output.ext2:
 	rm -rf output.ext2 /tmp/lorem.out/
