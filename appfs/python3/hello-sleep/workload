@@ -1,4 +1,4 @@
 import time
-def handle(obj):
-    time.sleep(0.001)
+def handle(req):
+    time.sleep(req['time'])
     return {'body': 'hello, world!'}
