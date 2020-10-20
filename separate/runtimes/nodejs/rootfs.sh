@@ -7,3 +7,5 @@ cp /runtime/workload.sh /bin/runtime-workload
 chmod +x /bin/runtime-workload
 
 apk del npm python make g++ linux-headers
+
+cp /common/factorial /usr/bin/factorial
