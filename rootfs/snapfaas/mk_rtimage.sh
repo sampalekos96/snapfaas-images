@@ -63,6 +63,9 @@ fi
 
 RUNTIME=$(realpath $RUNTIME)
 MYDIR=$(dirname $(realpath $0))
+if [ $DEBUG == 'debug.sh' ]; then
+    DEBUG=$MYDIR/../common/$DEBUG
+fi
 
 make -C $RUNTIME
 make -C $MYDIR/../common
@@ -81,7 +84,7 @@ sudo mount $OUTPUT $TMPDIR
 
 ## Execute the prelude, runtime script and postscript inside an Alpine docker container
 ## with the target root file system shared at `/my-rootfs` inside the container.
-cat prelude.sh $DEBUG $RUNTIME/rootfs.sh postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime alpine:3.10
+cat $MYDIR/../common/prelude.sh $DEBUG $RUNTIME/rootfs.sh $MYDIR/../common/postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime alpine:3.10
 
 ## Cleanup
 sudo umount $TMPDIR

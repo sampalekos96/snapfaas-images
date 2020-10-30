@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-## Creates an alpine-linux based rootfs for a particular runtime.  ## All
+## Creates an alpine-linux based rootfs for a particular runtime and appfs.  ## All
 ## runtimes share a common prelude and postscript for initialization and are
 ## specialized by scripts defined in the `runtimes/` subdirectory (typically
 ## just an `apk` command to install the relevant runtime binaries and libraries).
@@ -8,7 +8,7 @@
 ## Usage
 ## -----
 ##
-## $ ./mk_rtimage.sh RUNTIME OUTPUT_FILE
+## $ ./mk_appimage.sh RUNTIME APPFS OUTPUT_FILE
 ##
 ## Where RUNTIME is one of the runtimes defined in `runtimes`, without the `.sh`
 ## extension, and OUTPUT is the file with the resulting root file system.
@@ -47,14 +47,14 @@ eval set -- "$PARAMS"
 
 ## Check command line argument length
 if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 [--debug] [RUNTIME] [OUTPUT_FS_IMAGE] [APP]"
+  echo "Usage: $0 [--debug] [RUNTIME] [APP] [OUTPUT_FS_IMAGE] "
   print_runtimes
   exit 1
 fi
 
 RUNTIME=runtimes/$1
-OUTPUT=$2
-APP=$3
+OUTPUT=$3
+APP=$2
 
 if [ ! -f "$RUNTIME"/rootfs.sh ]; then
   echo "Runtime \`$1\` not found."
@@ -63,12 +63,15 @@ if [ ! -f "$RUNTIME"/rootfs.sh ]; then
 fi
 
 if [ ! -f "$APP"/Makefile ]; then
-  echo "App \`$3\` not found."
+  echo "App \`$2\` not found."
   exit 1
 fi
 
 RUNTIME=$(realpath $RUNTIME)
 MYDIR=$(dirname $(realpath $0))
+if [ $DEBUG == 'debug.sh' ]; then
+    DEBUG=$MYDIR/../common/$DEBUG
+fi
 
 make -C $RUNTIME
 make -C $MYDIR/../common
@@ -90,7 +93,7 @@ sudo mount $APP/output.ext2 $APPTMPDIR
 
 ## Execute the prelude, runtime script and postscript inside an Alpine docker container
 ## with the target root file system shared at `/my-rootfs` inside the container.
-cat prelude.sh $DEBUG $RUNTIME/rootfs.sh postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine:3.10
+cat $MYDIR/../common/prelude.sh $DEBUG $RUNTIME/rootfs.sh $MYDIR/../common/postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine:3.10
 
 ## Cleanup
 sudo umount $TMPDIR
