@@ -1,3 +1,9 @@
+## rootfs
+`rootfs` contains four subdirectories, namely `common`, `fullapp`, `regular`, and `snapfaas`.
+
+Directory `common` contain files that are common to the rest three directories each of which represents
+a style of booting a guest VM.
+
 Directory `fullapp` contains code and scripts to generate root file systems each of which contains
 **both** a language runtime and an application. All wrapper scripts contain one snapshotting point.
 
@@ -15,6 +21,7 @@ is for generating diff snapshot.
 **Note** that `snapfaas` contains some special runtimes that are only intended for special measurements.
 See `snapfaas/README.md`.
 
+## appfs
 Directory `appfs` contains serverless functions:
 1. Python3 functions are under `appfs/python3`.
 2. Node.js functions are under `appfs/nodejs`.
