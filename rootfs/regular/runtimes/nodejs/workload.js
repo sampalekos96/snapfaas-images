@@ -1,5 +1,4 @@
 const vsock = require("vsock");
-const { execSync, exec } = require("child_process");
 
 module.paths.push("/srv/node_modules");
 const app = require("/srv/workload");
