@@ -5,23 +5,20 @@ all: output.ext2
 tesseract: compile_tesseract.sh
 	echo "/srv/compile_tesseract.sh" | docker run -i --rm -v $(mkfile_path):/srv -w /tmp alpine:3.10
 
-lib:
-	test -d lib || mkdir lib
+__pycache__: workload.py
+	echo "apk add python3; PYTHONPATH=/app python3 -m workload" | docker run -i --rm -v $(mkfile_path):/app -w /app alpine:3.10
 
-package: requirements.txt workload
-	test -d package || mkdir package
-
-output.ext2: package lib tesseract
+output.ext2: tesseract __pycache__
 	rm -rf output.ext2 /tmp/lorem.out/
 	mkdir -p /tmp/lorem.out/
 	touch output.ext2
 	truncate -s 200M output.ext2
 	mkfs.ext2 output.ext2
 	sudo mount output.ext2 /tmp/lorem.out/
-	sudo cp -r lib package tesseract workload *.png *.jpg /tmp/lorem.out/
+	sudo cp -r tesseract workload.py __pycache__ *.png *.jpg /tmp/lorem.out/
 	sudo umount /tmp/lorem.out/
 
 clean:
-	sudo rm -r package
-	sudo rm -r lib
-	sudo rm output.ext2
+	sudo rm -rf tesseract
+	sudo rm -rf __pycache__
+	rm -f output.ext2
