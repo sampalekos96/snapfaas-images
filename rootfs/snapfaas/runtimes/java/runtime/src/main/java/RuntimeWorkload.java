@@ -8,8 +8,8 @@ import edu.princeton.sns.VSock;
 
 public class RuntimeWorkload {
 
-    private static int SERVER_PORT = 1234;
-    private static int VMADDR_CID_HOST = 2;
+    private static final int SERVER_PORT = 1234;
+    private static final int VMADDR_CID_HOST = 2;
 
     public static void addJar(URL url) throws Exception {
 
@@ -25,7 +25,7 @@ public class RuntimeWorkload {
 
     public static void main(String[] argv) {
 
-	    /* for language snapshot */
+	/* for language snapshot */
         int cores = Runtime.getRuntime().availableProcessors();
         try {
             Process[] proc_list = new Process[cores];
@@ -42,10 +42,18 @@ public class RuntimeWorkload {
         }
 
         /* mount appfs */
-	    try {
+	try {
             Process process = Runtime.getRuntime().exec("mount -r /dev/vdb /srv");
             int exitVal = process.waitFor();
             assert  exitVal == 0: "Err in mounting appfs";
+
+            // Process tmpProc = Runtime.getRuntime().exec("ls /srv");
+            // BufferedReader reader = new BufferedReader(new InputStreamReader(tmpProc.getInputStream()));
+            // String line = "";
+            // while ((line = reader.readLine()) != null) {
+            //     System.out.println(line);
+            // }
+            // tmpProc.waitFor();
         }
         catch (Exception e) {
             System.out.println(e);
@@ -60,38 +68,23 @@ public class RuntimeWorkload {
         Method app = null;
 
         try {
+            // first, add the dependency jar to classpath
+            addJar(new File("/srv/libworkload.jar").toURI().toURL());
+
             file = new File("/");
             URL url = file.toURI().toURL();
             URL[] urls = new URL[]{url};
             cl = new URLClassLoader(urls);
             cls = cl.loadClass("srv.workload"); 
 
+            // load the handle function in srv.workload
             o = cls.getDeclaredConstructor().newInstance();
             app = cls.getDeclaredMethod("handle", JSONObject.class);
             app.setAccessible(true);
-
         }
         catch (Exception e) {
             System.out.println(e);
             System.exit(1);
-        }
-	
-	    /* load application jar dependecies */
-	    File pkg_names = new File("/srv/package");
-        try {
-            if (pkg_names.length() > 0) {
-                for (String pkg: pkg_names.list()) {
-                    if (pkg.endsWith(".jar")) {
-                        pkg = "/srv/package/"+pkg;
-                        // System.out.println(pkg);
-                        addJar(new File(pkg).toURI().toURL());
-                    }
-                }
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e.getCause());
-            System.exit(-1);
         }
 
         /* for function diff snapshot */
@@ -133,11 +126,12 @@ public class RuntimeWorkload {
 
                 ret_json.put("duration", end_time-start_time);
                 vsock.vsockWrite(ret_json.toString());
-                if (req_json.get("request").equals("end")) {
-                    // close connection
-                    vsock.vsockClose();
-                    break;
-                }
+                // no need to exit from the host side
+                // if (req_json.get("request").equals("end")) {
+                //     // close connection
+                //     vsock.vsockClose();
+                //     break;
+                // }
             }
             catch(Exception e){
                 System.out.println(e.getCause());
