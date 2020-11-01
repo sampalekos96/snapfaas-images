@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
-import importlib.util
-import importlib.machinery
+from importlib import import_module
 import os
 import struct
 import json
@@ -17,13 +15,9 @@ hostaddr = (socket.VMADDR_CID_HOST, VSOCKPORT)
 
 # mount appfs and load application
 run(["mount", "-r", "/dev/vdb", "/srv"], executable="/bin/mount")
-sys.path.append('/srv/package')
-importlib.machinery.SOURCE_SUFFIXES.append('')
-spec = importlib.util.spec_from_file_location("app", "/srv/workload")
-app = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(app)
+app = import_module('workload')
 
-# for function diff snapshot
+# for function snapshot
 for i in range(1, os.cpu_count()):
     Popen('taskset -c %d outl 124 0x3f0'%(i), shell=True)
 run('taskset -c 0 outl 124 0x3f0', shell=True)

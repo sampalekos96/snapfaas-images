@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
-import importlib.util
-import importlib.machinery
+from importlib import import_module
 import os
 import struct
 import json
@@ -22,11 +20,7 @@ run('taskset -c 0 outl 124 0x3f0', shell=True)
 
 # mount appfs and load application
 run(["mount", "-r", "/dev/vdb", "/srv"], executable="/bin/mount")
-sys.path.append('/srv/package')
-importlib.machinery.SOURCE_SUFFIXES.append('')
-spec = importlib.util.spec_from_file_location("app", "/srv/workload")
-app = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(app)
+app = import_module('workload')
 
 # for function diff snapshot
 for i in range(1, os.cpu_count()):
@@ -38,11 +32,15 @@ while True:
     data = sock.recv(4, socket.MSG_WAITALL)
     res = struct.unpack(">I", data)
     requestJson = sock.recv(res[0], socket.MSG_WAITALL).decode("utf-8")
+
     request = json.loads(requestJson)
 
+    start = time.monotonic_ns()
     response = app.handle(request)
+    response['duration'] = time.monotonic_ns() - start
 
     responseJson = json.dumps(response)
+    
     sock.sendall(struct.pack(">I", len(responseJson)))
     sock.sendall(bytes(responseJson, "utf-8"))
     # for execution diff snapshot
