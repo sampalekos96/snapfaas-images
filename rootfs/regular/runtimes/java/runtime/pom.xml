@@ -20,9 +20,10 @@
         </dependency>
         <dependency>
             <groupId>edu.princeton.sns.snapfaas</groupId>
-            <artifactId>app</artifactId>
+            <artifactId>libworkload</artifactId>
             <version>1.0</version>
-            <scope>provided</scope>
+            <scope>system</scope>
+            <systemPath>/srv/libworkload.jar</systemPath>
         </dependency>
     </dependencies>
 
