@@ -13,7 +13,7 @@ output.ext2:
 	truncate -s 10M output.ext2
 	mkfs.ext2 output.ext2
 	sudo mount output.ext2 /tmp/lorem.out/
-	sudo cp -r target/libworkload.jar target/classes/srv/workload.class /tmp/lorem.out/
+	sudo cp -r target/libworkload.jar target/classes/srv/workload.class *.jpg /tmp/lorem.out/
 	sudo umount /tmp/lorem.out/
 
 .PHONY: clean
