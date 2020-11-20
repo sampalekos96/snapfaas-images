@@ -8,17 +8,17 @@ import socket
 import os
 from subprocess import run, Popen
 
-# send over the boot completion signal
-for i in range(1, os.cpu_count()):
-    Popen('taskset -c {} outl 123 0x3f0'.format(i), shell=True)
-run('taskset -c 0 outl 123 0x3f0', shell=True)
-
 # vsock to communicate with the host
 VSOCKPORT = 1234
 sock = socket.socket(socket.AF_VSOCK, socket.SOCK_STREAM)
 hostaddr = (socket.VMADDR_CID_HOST, VSOCKPORT)
 
 app = import_module('workload')
+
+# send over the boot completion signal
+for i in range(1, os.cpu_count()):
+    Popen('taskset -c {} outl 123 0x3f0'.format(i), shell=True)
+run('taskset -c 0 outl 123 0x3f0', shell=True)
 
 sock.connect(hostaddr)
 while True:
