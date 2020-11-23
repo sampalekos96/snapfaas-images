@@ -24,8 +24,8 @@ app = import_module('workload')
 
 # for function diff snapshot
 for i in range(1, os.cpu_count()):
-    Popen('taskset -c %d outl 124 0x3f0'%(i), shell=True)
-run('taskset -c 0 outl 124 0x3f0', shell=True)
+    Popen('taskset -c %d do-snapshot 123'%(i), shell=True)
+run('taskset -c 0 do-snapshot 123', shell=True)
 
 sock.connect(hostaddr)
 while True:
