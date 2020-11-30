@@ -91,9 +91,9 @@ public class RuntimeWorkload {
         try {
             Process[] proc_list = new Process[cores];
             for (int i=1; i<cores; i++) {
-                proc_list[i] = Runtime.getRuntime().exec(String.format("taskset -c %d outl 124 0x3f0", i));
+                proc_list[i] = Runtime.getRuntime().exec(String.format("taskset -c %d do-snapshot 123", i));
             }
-            proc_list[0] = Runtime.getRuntime().exec("taskset -c 0 outl 124 0x3f0");
+            proc_list[0] = Runtime.getRuntime().exec("taskset -c 0 do-snapshot 123");
             int exitVal = proc_list[0].waitFor();
             assert  exitVal == 0: "Err in enabling function diff snapshot";
         }
@@ -126,12 +126,6 @@ public class RuntimeWorkload {
 
                 ret_json.put("duration", end_time-start_time);
                 vsock.vsockWrite(ret_json.toString());
-                // no need to exit from the host side
-                // if (req_json.get("request").equals("end")) {
-                //     // close connection
-                //     vsock.vsockClose();
-                //     break;
-                // }
             }
             catch(Exception e){
                 System.out.println(e.getCause());
