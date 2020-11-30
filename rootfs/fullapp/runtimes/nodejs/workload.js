@@ -6,9 +6,9 @@ const app = require("/srv/workload");
 
 const cpu_count = require("os").cpus().length;
 for (var i = 1; i < cpu_count; i++) {
-    exec(`taskset -c ${i} outl 124 0x3f0`);
+    exec(`taskset -c ${i} do-snapshot 123`);
 }
-execSync('taskset -c 0 outl 124 0x3f0')
+execSync('taskset -c 0 do-snapshot 123')
 
 const sock_conn = vsock.connect(2, 1234);
 

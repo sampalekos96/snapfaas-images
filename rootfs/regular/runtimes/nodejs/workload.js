@@ -1,7 +1,14 @@
 const vsock = require("vsock");
+const { execSync, exec } = require("child_process");
 
 module.paths.push("/srv/node_modules");
 const app = require("/srv/workload");
+
+const cpu_count = require("os").cpus().length;
+for (var i = 1; i < cpu_count; i++) {
+    exec(`taskset -c ${i} outl 123 0x3f0`);
+}
+execSync('taskset -c 0 outl 123 0x3f0')
 
 const sock_conn = vsock.connect(2, 1234);
 
