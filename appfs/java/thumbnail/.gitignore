@@ -1,2 +1,7 @@
 target
 output.ext2
+bin
+etc
+include
+lib
+share
