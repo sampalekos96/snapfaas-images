@@ -3,51 +3,19 @@ package main
 import (
 	"encoding/binary"
 	"encoding/json"
-	"os"
 	"os/exec"
-	"plugin"
 	"runtime"
 
 	"golang.org/x/sys/unix"
 )
 
 func main() {
-	err := unix.Iopl(3)
-	if err != nil {
-		panic(err)
-	}
+	Init()
 
 	for i := 1; i < runtime.NumCPU(); i++ {
-		exec.Command("taskset", "-c", string(i), "outl", "124", "0x3f0").Run()
+		exec.Command("taskset", "-c", string(i), "do-snapshot", "123").Run()
 	}
-	exec.Command("taskset", "-c", "0", "outl", "124", "0x3f0").Run()
-
-	if unix.Mount("/dev/vdb", "/srv", "ext2", unix.MS_RDONLY, "") != nil {
-		panic("Failed to mount")
-	}
-
-	p, err := plugin.Open(os.Args[1])
-	if err != nil {
-		panic(err)
-	}
-	initptr, err := p.Lookup("Init")
-	if err != nil {
-		panic(err)
-	}
-	handleptr, err := p.Lookup("Handle")
-	if err != nil {
-		panic(err)
-	}
-
-	init := initptr.(func())
-	handle := handleptr.(func([]byte) interface{})
-
-	init()
-
-	for i := 1; i < runtime.NumCPU(); i++ {
-		exec.Command("taskset", "-c", string(i), "outl", "124", "0x3f0").Run()
-	}
-	exec.Command("taskset", "-c", "0", "outl", "124", "0x3f0").Run()
+	exec.Command("taskset", "-c", "0", "do-snapshot", "123").Run()
 
 	fd, err := unix.Socket(unix.AF_VSOCK, unix.SOCK_STREAM, 0)
 	if err != nil {
@@ -75,7 +43,7 @@ func main() {
 			panic(err)
 		}
 
-		response := handle(reqbuf)
+		response := Handle(reqbuf)
 
 		responseBuf, err := json.Marshal(response)
 
