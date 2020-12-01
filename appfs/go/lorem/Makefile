@@ -12,5 +12,5 @@ output.ext2: workload
 	truncate -s 10M output.ext2
 	mkfs.ext2 output.ext2
 	sudo mount output.ext2 /tmp/lorem.out/
-	sudo cp -r workload /tmp/lorem.out/
+	sudo cp -r workload go.mod go.sum workload.go /tmp/lorem.out/
 	sudo umount /tmp/lorem.out/
