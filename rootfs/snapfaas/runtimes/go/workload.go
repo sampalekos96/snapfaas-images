@@ -45,9 +45,9 @@ func main() {
 	init()
 
 	for i := 1; i < runtime.NumCPU(); i++ {
-		exec.Command("taskset", "-c", string(i), "outl", "124", "0x3f0").Run()
+		exec.Command("taskset", "-c", string(i), "do-snapshot", "123").Run()
 	}
-	exec.Command("taskset", "-c", "0", "outl", "124", "0x3f0").Run()
+	exec.Command("taskset", "-c", "0", "do-snapshot", "123").Run()
 
 	fd, err := unix.Socket(unix.AF_VSOCK, unix.SOCK_STREAM, 0)
 	if err != nil {
