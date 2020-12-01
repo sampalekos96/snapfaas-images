@@ -1,20 +1,59 @@
+import java.net.*;
 import java.io.*;
+import java.lang.reflect.Method;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import edu.princeton.sns.VSock;
-
-import srv.workload;
 
 public class RuntimeWorkload {
 
     private static final int SERVER_PORT = 1234;
     private static final int VMADDR_CID_HOST = 2;
 
+    public static void addJar(URL url) throws Exception {
+
+        URLClassLoader classLoader
+                = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        Class clazz= URLClassLoader.class;
+
+        // Use reflection
+        Method method= clazz.getDeclaredMethod("addURL", new Class[] { URL.class });
+        method.setAccessible(true);
+        method.invoke(classLoader, new Object[] { url });
+    }
+    
     public static void main(String[] argv) {
 
         /* load application */
-        workload app = new workload();
+        File file = null;
+        ClassLoader cl = null;
+        Class cls = null;
+        Object o = null;
+        Method app = null;
+
+        try {
+            // first, add the dependency jar to classpath
+            addJar(new File("/srv/libworkload.jar").toURI().toURL());
+
+            file = new File("/");
+            URL url = file.toURI().toURL();
+            URL[] urls = new URL[]{url};
+            cl = new URLClassLoader(urls);
+            cls = cl.loadClass("srv.workload"); 
+
+            // load the handle function in srv.workload
+            o = cls.getDeclaredConstructor().newInstance();
+            app = cls.getDeclaredMethod("handle", JSONObject.class);
+            app.setAccessible(true);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+
+        // /* load application */
+        // workload app = new workload();
 
         /* for function diff snapshot */
         int cores = Runtime.getRuntime().availableProcessors();
@@ -50,7 +89,7 @@ public class RuntimeWorkload {
                 JSONObject req_json = (JSONObject) parser.parse(req_str);
 
                 long start_time = System.nanoTime();
-                JSONObject ret_json = app.handle(req_json);
+                JSONObject ret_json = (JSONObject) app.invoke(o, req_json);
                 long end_time = System.nanoTime();
 
                 ret_json.put("duration", end_time-start_time);
