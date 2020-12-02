@@ -3,7 +3,7 @@ mkfile_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 all: output.ext2
 
 workload: workload.go
-	echo "apk add go; cd /runtime; go mod download; go build -buildmode=plugin -o /runtime/workload" | docker run -i --rm -v $(mkfile_path):/runtime alpine:3.10
+	echo "apk add go git build-base; cd /runtime; go mod download; go build -buildmode=plugin -o /runtime/workload" | docker run -i --rm -v $(mkfile_path):/runtime alpine:3.10
 
 output.ext2: workload
 	rm -rf output.ext2 /tmp/lorem.out/
