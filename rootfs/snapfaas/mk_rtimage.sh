@@ -76,7 +76,7 @@ TMPDIR=`mktemp -d`
 ## Delete the output file if it exists, and create a new one formatted as
 ## an EXT4 filesystem.
 rm -f $OUTPUT
-dd if=/dev/zero of=$OUTPUT bs=1M count=500
+dd if=/dev/zero of=$OUTPUT bs=1M count=1000
 mkfs.ext4 $OUTPUT
 
 ## Mount the output file in the temporary directory
