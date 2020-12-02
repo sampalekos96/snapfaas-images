@@ -126,12 +126,6 @@ public class RuntimeWorkload {
 
                 ret_json.put("duration", end_time-start_time);
                 vsock.vsockWrite(ret_json.toString());
-                // no need to exit from the host side
-                // if (req_json.get("request").equals("end")) {
-                //     // close connection
-                //     vsock.vsockClose();
-                //     break;
-                // }
             }
             catch(Exception e){
                 System.out.println(e.getCause());

@@ -3,12 +3,19 @@ package main
 import (
 	"encoding/binary"
 	"encoding/json"
+	"os/exec"
+	"runtime"
 
 	"golang.org/x/sys/unix"
 )
 
 func main() {
 	Init()
+
+	for i := 1; i < runtime.NumCPU(); i++ {
+                exec.Command("taskset", "-c", string(i), "outl", "123", "0x3f0").Run()
+        }
+        exec.Command("taskset", "-c", "0", "outl", "123", "0x3f0").Run()
 
 	fd, err := unix.Socket(unix.AF_VSOCK, unix.SOCK_STREAM, 0)
 	if err != nil {
