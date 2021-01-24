@@ -21,6 +21,7 @@ for i in range(1, os.cpu_count()):
 run('taskset -c 0 outl 123 0x3f0', shell=True)
 
 sock.connect(hostaddr)
+run('taskset -c 0 outl 126 0x3f0', shell=True)
 while True:
     data = sock.recv(4, socket.MSG_WAITALL)
     res = struct.unpack(">I", data)

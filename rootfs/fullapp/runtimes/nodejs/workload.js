@@ -13,6 +13,7 @@ execSync('taskset -c 0 outl 124 0x3f0')
 const sock_conn = vsock.connect(2, 1234);
 
 (async function() {
+  execSync('taskset -c 0 outl 124 0x3f0')
   while (true) {
     const req = await vsock.readRequest(sock_conn);
 
