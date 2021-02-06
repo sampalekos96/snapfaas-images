@@ -31,8 +31,7 @@ const sock_conn = vsock.connect(2, 1234);
     const hrstart = process.hrtime();
     const resp = await app.handle(req);
     const hrend = process.hrtime(hrstart)
-    resp.runtime_sec = hrend[0];
-    resp.runtime_ms = hrend[1] / 1000000;
+    resp.duration = hrend[0] * 1000000000 + hrend[1];
     await vsock.writeResponse(sock_conn, resp);
   }
 })();
