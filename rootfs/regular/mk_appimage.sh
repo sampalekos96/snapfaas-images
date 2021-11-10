@@ -78,7 +78,7 @@ make -C $MYDIR/../common
 make -C $APP
 
 ## Create a temporary directory to mount the filesystem
-TMPDIR=`mktemp -d`
+MTMPDIR=`mktemp -d`
 APPTMPDIR=`mktemp -d`
 
 ## Delete the output file if it exists, and create a new one formatted as
@@ -88,15 +88,15 @@ dd if=/dev/zero of=$OUTPUT bs=1M count=1000
 mkfs.ext4 $OUTPUT
 
 ## Mount the output file in the temporary directory
-sudo mount $OUTPUT $TMPDIR
+sudo mount $OUTPUT $MTMPDIR
 sudo mount $APP/output.ext2 $APPTMPDIR
 
 ## Execute the prelude, runtime script and postscript inside an Alpine docker container
 ## with the target root file system shared at `/my-rootfs` inside the container.
-cat $MYDIR/../common/prelude.sh $DEBUG $RUNTIME/rootfs.sh $MYDIR/../common/postscript.sh | docker run -i --rm -v $TMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine:3.10
+cat $MYDIR/../common/prelude.sh $DEBUG $RUNTIME/rootfs.sh $MYDIR/../common/postscript.sh | docker run -i --rm -v $MTMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine:3.10
 
 ## Cleanup
-sudo umount $TMPDIR
-rm -Rf $TMPDIR
+sudo umount $MTMPDIR
+rm -Rf $MTMPDIR
 sudo umount $APPTMPDIR
 rm -Rf $APPTMPDIR
