@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
 ## Creates an alpine-linux based rootfs for a particular runtime.  ## All
 ## runtimes share a common prelude and postscript for initialization and are
