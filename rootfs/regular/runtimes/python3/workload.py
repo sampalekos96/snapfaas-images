@@ -22,33 +22,42 @@ class Syscall():
     def __init__(self, sock):
         self.sock = sock
 
-    def write_key(self, key, value):
-        req = syscalls_pb2.Syscall(writeKey = syscalls_pb2.WriteKey(key = key, value = value))
+    def _send(self, req):
         reqData = req.SerializeToString()
         self.sock.sendall(struct.pack(">I", len(reqData)))
         self.sock.sendall(reqData)
 
+    def _recv(self, response):
         data = sock.recv(4, socket.MSG_WAITALL)
         res = struct.unpack(">I", data)
-        responseData = sock.recv(res[0], socket.MSG_WAITALL)
+        responseData = self.sock.recv(res[0], socket.MSG_WAITALL)
 
-        response = syscalls_pb2.WriteKeyResponse()
         response.ParseFromString(responseData)
+        return response
+
+    def write_key(self, key, value):
+        req = syscalls_pb2.Syscall(writeKey = syscalls_pb2.WriteKey(key = key, value = value))
+        self._send(req)
+        response = self._recv(syscalls_pb2.WriteKeyResponse())
         return response.success
 
     def read_key(self, key):
         req = syscalls_pb2.Syscall(readKey = syscalls_pb2.ReadKey(key = key))
-        reqData = req.SerializeToString()
-        self.sock.sendall(struct.pack(">I", len(reqData)))
-        self.sock.sendall(reqData)
-
-        data = sock.recv(4, socket.MSG_WAITALL)
-        res = struct.unpack(">I", data)
-        responseData = sock.recv(res[0], socket.MSG_WAITALL)
-
-        response = syscalls_pb2.ReadKeyResponse()
-        response.ParseFromString(responseData)
+        self._send(req)
+        response = self._recv(syscalls_pb2.ReadKeyResponse())
         return response.value
+
+    def get_current_label(self):
+        req = syscalls_pb2.Syscall(getCurrentLabel = syscalls_pb2.GetCurrentLabel())
+        self._send(req)
+        response = self._recv(syscalls_pb2.DcLabel())
+        return response
+
+    def taint(self, label):
+        req = syscalls_pb2.Syscall(taintWithLabel = label)
+        self._send(req)
+        response = self._recv(syscalls_pb2.DcLabel())
+        return response
 
 # send over the boot completion signal
 for i in range(1, os.cpu_count()):

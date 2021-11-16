@@ -19,10 +19,123 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0esyscalls.proto\x12\x11snapfaas.syscalls\"\x1a\n\x07Request\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x1b\n\x08Response\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x16\n\x07ReadKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\"/\n\x0fReadKeyResponse\x12\x12\n\x05value\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_value\"&\n\x08WriteKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\"#\n\x10WriteKeyResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\xa5\x01\n\x07Syscall\x12/\n\x08response\x18\x01 \x01(\x0b\x32\x1b.snapfaas.syscalls.ResponseH\x00\x12-\n\x07readKey\x18\x02 \x01(\x0b\x32\x1a.snapfaas.syscalls.ReadKeyH\x00\x12/\n\x08writeKey\x18\x03 \x01(\x0b\x32\x1b.snapfaas.syscalls.WriteKeyH\x00\x42\t\n\x07syscallb\x06proto3'
+  serialized_pb=b'\n\x0esyscalls.proto\x12\x11snapfaas.syscalls\"\x1c\n\x06\x43lause\x12\x12\n\nprincipals\x18\x01 \x03(\t\"7\n\tComponent\x12*\n\x07\x63lauses\x18\x01 \x03(\x0b\x32\x19.snapfaas.syscalls.Clause\"\x8d\x01\n\x07\x44\x63Label\x12\x32\n\x07secrecy\x18\x01 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x00\x88\x01\x01\x12\x34\n\tintegrity\x18\x02 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x01\x88\x01\x01\x42\n\n\x08_secrecyB\x0c\n\n_integrity\"\x1a\n\x07Request\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x1b\n\x08Response\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x16\n\x07ReadKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\"/\n\x0fReadKeyResponse\x12\x12\n\x05value\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_value\"&\n\x08WriteKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\"#\n\x10WriteKeyResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x11\n\x0fGetCurrentLabel\"\x9a\x02\n\x07Syscall\x12/\n\x08response\x18\x01 \x01(\x0b\x32\x1b.snapfaas.syscalls.ResponseH\x00\x12-\n\x07readKey\x18\x02 \x01(\x0b\x32\x1a.snapfaas.syscalls.ReadKeyH\x00\x12/\n\x08writeKey\x18\x03 \x01(\x0b\x32\x1b.snapfaas.syscalls.WriteKeyH\x00\x12=\n\x0fgetCurrentLabel\x18\x04 \x01(\x0b\x32\".snapfaas.syscalls.GetCurrentLabelH\x00\x12\x34\n\x0etaintWithLabel\x18\x05 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabelH\x00\x42\t\n\x07syscallb\x06proto3'
 )
 
 
+
+
+_CLAUSE = _descriptor.Descriptor(
+  name='Clause',
+  full_name='snapfaas.syscalls.Clause',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='principals', full_name='snapfaas.syscalls.Clause.principals', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=37,
+  serialized_end=65,
+)
+
+
+_COMPONENT = _descriptor.Descriptor(
+  name='Component',
+  full_name='snapfaas.syscalls.Component',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='clauses', full_name='snapfaas.syscalls.Component.clauses', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=67,
+  serialized_end=122,
+)
+
+
+_DCLABEL = _descriptor.Descriptor(
+  name='DcLabel',
+  full_name='snapfaas.syscalls.DcLabel',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='secrecy', full_name='snapfaas.syscalls.DcLabel.secrecy', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='integrity', full_name='snapfaas.syscalls.DcLabel.integrity', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_secrecy', full_name='snapfaas.syscalls.DcLabel._secrecy',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_integrity', full_name='snapfaas.syscalls.DcLabel._integrity',
+      index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=125,
+  serialized_end=266,
+)
 
 
 _REQUEST = _descriptor.Descriptor(
@@ -52,8 +165,8 @@ _REQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=37,
-  serialized_end=63,
+  serialized_start=268,
+  serialized_end=294,
 )
 
 
@@ -84,8 +197,8 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=65,
-  serialized_end=92,
+  serialized_start=296,
+  serialized_end=323,
 )
 
 
@@ -116,8 +229,8 @@ _READKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=94,
-  serialized_end=116,
+  serialized_start=325,
+  serialized_end=347,
 )
 
 
@@ -153,8 +266,8 @@ _READKEYRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=118,
-  serialized_end=165,
+  serialized_start=349,
+  serialized_end=396,
 )
 
 
@@ -192,8 +305,8 @@ _WRITEKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=167,
-  serialized_end=205,
+  serialized_start=398,
+  serialized_end=436,
 )
 
 
@@ -224,8 +337,33 @@ _WRITEKEYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=207,
-  serialized_end=242,
+  serialized_start=438,
+  serialized_end=473,
+)
+
+
+_GETCURRENTLABEL = _descriptor.Descriptor(
+  name='GetCurrentLabel',
+  full_name='snapfaas.syscalls.GetCurrentLabel',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=475,
+  serialized_end=492,
 )
 
 
@@ -258,6 +396,20 @@ _SYSCALL = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='getCurrentLabel', full_name='snapfaas.syscalls.Syscall.getCurrentLabel', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='taintWithLabel', full_name='snapfaas.syscalls.Syscall.taintWithLabel', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -275,16 +427,27 @@ _SYSCALL = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=245,
-  serialized_end=410,
+  serialized_start=495,
+  serialized_end=777,
 )
 
+_COMPONENT.fields_by_name['clauses'].message_type = _CLAUSE
+_DCLABEL.fields_by_name['secrecy'].message_type = _COMPONENT
+_DCLABEL.fields_by_name['integrity'].message_type = _COMPONENT
+_DCLABEL.oneofs_by_name['_secrecy'].fields.append(
+  _DCLABEL.fields_by_name['secrecy'])
+_DCLABEL.fields_by_name['secrecy'].containing_oneof = _DCLABEL.oneofs_by_name['_secrecy']
+_DCLABEL.oneofs_by_name['_integrity'].fields.append(
+  _DCLABEL.fields_by_name['integrity'])
+_DCLABEL.fields_by_name['integrity'].containing_oneof = _DCLABEL.oneofs_by_name['_integrity']
 _READKEYRESPONSE.oneofs_by_name['_value'].fields.append(
   _READKEYRESPONSE.fields_by_name['value'])
 _READKEYRESPONSE.fields_by_name['value'].containing_oneof = _READKEYRESPONSE.oneofs_by_name['_value']
 _SYSCALL.fields_by_name['response'].message_type = _RESPONSE
 _SYSCALL.fields_by_name['readKey'].message_type = _READKEY
 _SYSCALL.fields_by_name['writeKey'].message_type = _WRITEKEY
+_SYSCALL.fields_by_name['getCurrentLabel'].message_type = _GETCURRENTLABEL
+_SYSCALL.fields_by_name['taintWithLabel'].message_type = _DCLABEL
 _SYSCALL.oneofs_by_name['syscall'].fields.append(
   _SYSCALL.fields_by_name['response'])
 _SYSCALL.fields_by_name['response'].containing_oneof = _SYSCALL.oneofs_by_name['syscall']
@@ -294,14 +457,45 @@ _SYSCALL.fields_by_name['readKey'].containing_oneof = _SYSCALL.oneofs_by_name['s
 _SYSCALL.oneofs_by_name['syscall'].fields.append(
   _SYSCALL.fields_by_name['writeKey'])
 _SYSCALL.fields_by_name['writeKey'].containing_oneof = _SYSCALL.oneofs_by_name['syscall']
+_SYSCALL.oneofs_by_name['syscall'].fields.append(
+  _SYSCALL.fields_by_name['getCurrentLabel'])
+_SYSCALL.fields_by_name['getCurrentLabel'].containing_oneof = _SYSCALL.oneofs_by_name['syscall']
+_SYSCALL.oneofs_by_name['syscall'].fields.append(
+  _SYSCALL.fields_by_name['taintWithLabel'])
+_SYSCALL.fields_by_name['taintWithLabel'].containing_oneof = _SYSCALL.oneofs_by_name['syscall']
+DESCRIPTOR.message_types_by_name['Clause'] = _CLAUSE
+DESCRIPTOR.message_types_by_name['Component'] = _COMPONENT
+DESCRIPTOR.message_types_by_name['DcLabel'] = _DCLABEL
 DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 DESCRIPTOR.message_types_by_name['ReadKey'] = _READKEY
 DESCRIPTOR.message_types_by_name['ReadKeyResponse'] = _READKEYRESPONSE
 DESCRIPTOR.message_types_by_name['WriteKey'] = _WRITEKEY
 DESCRIPTOR.message_types_by_name['WriteKeyResponse'] = _WRITEKEYRESPONSE
+DESCRIPTOR.message_types_by_name['GetCurrentLabel'] = _GETCURRENTLABEL
 DESCRIPTOR.message_types_by_name['Syscall'] = _SYSCALL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Clause = _reflection.GeneratedProtocolMessageType('Clause', (_message.Message,), {
+  'DESCRIPTOR' : _CLAUSE,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.Clause)
+  })
+_sym_db.RegisterMessage(Clause)
+
+Component = _reflection.GeneratedProtocolMessageType('Component', (_message.Message,), {
+  'DESCRIPTOR' : _COMPONENT,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.Component)
+  })
+_sym_db.RegisterMessage(Component)
+
+DcLabel = _reflection.GeneratedProtocolMessageType('DcLabel', (_message.Message,), {
+  'DESCRIPTOR' : _DCLABEL,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.DcLabel)
+  })
+_sym_db.RegisterMessage(DcLabel)
 
 Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), {
   'DESCRIPTOR' : _REQUEST,
@@ -344,6 +538,13 @@ WriteKeyResponse = _reflection.GeneratedProtocolMessageType('WriteKeyResponse', 
   # @@protoc_insertion_point(class_scope:snapfaas.syscalls.WriteKeyResponse)
   })
 _sym_db.RegisterMessage(WriteKeyResponse)
+
+GetCurrentLabel = _reflection.GeneratedProtocolMessageType('GetCurrentLabel', (_message.Message,), {
+  'DESCRIPTOR' : _GETCURRENTLABEL,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.GetCurrentLabel)
+  })
+_sym_db.RegisterMessage(GetCurrentLabel)
 
 Syscall = _reflection.GeneratedProtocolMessageType('Syscall', (_message.Message,), {
   'DESCRIPTOR' : _SYSCALL,
