@@ -59,6 +59,26 @@ class Syscall():
         response = self._recv(syscalls_pb2.DcLabel())
         return response
 
+    def github_rest_get(self, route):
+        req = syscalls_pb2.Syscall(githubRest = syscalls_pb2.GithubRest(verb = syscalls_pb2.HttpVerb.GET, route = route, body = None))
+        self._send(req)
+        response= self._recv(syscalls_pb2.GithubRestResponse())
+        return response
+
+    def github_rest_post(self, route, body):
+        bodyJson = json.dumps(body)
+        req = syscalls_pb2.Syscall(githubRest = syscalls_pb2.GithubRest(verb = syscalls_pb2.HttpVerb.POST, route = route, body = bodyJson))
+        self._send(req)
+        response= self._recv(syscalls_pb2.GithubRestResponse())
+        return response
+
+    #def github_rest_put(self, route, body):
+    #    bodyJson = json.dumps(body)
+    #    req = syscalls_pb2.Syscall(githubRest = syscalls_pb2.GithubRest(verb = syscalls_pb2.HttpVerb.PUT, route = route, body = bodyJson))
+    #    self._send(req)
+    #    response= self._recv(syscalls_pb2.GithubRestResponse())
+    #    return response
+
 # send over the boot completion signal
 for i in range(1, os.cpu_count()):
     Popen('taskset -c {} outl 123 0x3f0'.format(i), shell=True)
@@ -76,14 +96,15 @@ while True:
     request.ParseFromString(requestData)
 
     start = time.monotonic_ns()
-    resposneJson = {}
     try:
-        responseJson = app.handle(json.loads(request.payload), sc)
+        response = app.handle(json.loads(request.payload), sc)
+        response['duration'] = time.monotonic_ns() - start
+        # return value from Lambda can be not JSON serializable
+        response = syscalls_pb2.Syscall(response = syscalls_pb2.Response(payload = json.dumps(response)))
     except:
-        responseJson = { 'error': str(sys.exc_info()) }
-    responseJson['duration'] = time.monotonic_ns() - start
-
-    response = syscalls_pb2.Syscall(response = syscalls_pb2.Response(payload = json.dumps(responseJson)))
+        response = { 'error': str(sys.exc_info()) }
+        response['duration'] = time.monotonic_ns() - start
+        response = syscalls_pb2.Syscall(response = syscalls_pb2.Response(payload = json.dumps(response)))
 
     responseData = response.SerializeToString()
 
