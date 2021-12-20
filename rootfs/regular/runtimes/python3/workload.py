@@ -7,6 +7,7 @@ import time
 import socket
 import os
 import sys
+import traceback
 from subprocess import run, Popen
 
 import syscalls_pb2
@@ -102,7 +103,14 @@ while True:
         # return value from Lambda can be not JSON serializable
         response = syscalls_pb2.Syscall(response = syscalls_pb2.Response(payload = json.dumps(response)))
     except:
-        response = { 'error': str(sys.exc_info()) }
+        ty, val, tb = sys.exc_info()
+        response = {
+            'error': {
+                'type': str(ty),
+                'value': str(val),
+                'traceback': traceback.format_tb(tb),
+            },
+        }
         response['duration'] = time.monotonic_ns() - start
         response = syscalls_pb2.Syscall(response = syscalls_pb2.Response(payload = json.dumps(response)))
 
