@@ -19,6 +19,16 @@ hostaddr = (socket.VMADDR_CID_HOST, VSOCKPORT)
 
 app = import_module('workload')
 
+def recvall(sock, n):
+    # Helper function to recv n bytes or return None if EOF is hit
+    data = bytearray()
+    while len(data) < n:
+        packet = sock.recv(n - len(data))
+        if not packet:
+            return None
+        data.extend(packet)
+    return data
+
 class Syscall():
     def __init__(self, sock):
         self.sock = sock
@@ -31,7 +41,7 @@ class Syscall():
     def _recv(self, response):
         data = sock.recv(4, socket.MSG_WAITALL)
         res = struct.unpack(">I", data)
-        responseData = self.sock.recv(res[0], socket.MSG_WAITALL)
+        responseData = recvall(self.sock, res[0])
 
         response.ParseFromString(responseData)
         return response
