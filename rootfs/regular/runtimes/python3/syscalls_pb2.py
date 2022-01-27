@@ -15,14 +15,18 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esyscalls.proto\x12\x11snapfaas.syscalls\"\x1c\n\x06\x43lause\x12\x12\n\nprincipals\x18\x01 \x03(\t\"7\n\tComponent\x12*\n\x07\x63lauses\x18\x01 \x03(\x0b\x32\x19.snapfaas.syscalls.Clause\"\x8d\x01\n\x07\x44\x63Label\x12\x32\n\x07secrecy\x18\x01 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x00\x88\x01\x01\x12\x34\n\tintegrity\x18\x02 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x01\x88\x01\x01\x42\n\n\x08_secrecyB\x0c\n\n_integrity\"\x1a\n\x07Request\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x1b\n\x08Response\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x16\n\x07ReadKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\"/\n\x0fReadKeyResponse\x12\x12\n\x05value\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_value\"&\n\x08WriteKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\"#\n\x10WriteKeyResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"b\n\nGithubRest\x12)\n\x04verb\x18\x01 \x01(\x0e\x32\x1b.snapfaas.syscalls.HttpVerb\x12\r\n\x05route\x18\x02 \x01(\t\x12\x11\n\x04\x62ody\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_body\"\"\n\x12GithubRestResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x11\n\x0fGetCurrentLabel\"\xcf\x02\n\x07Syscall\x12/\n\x08response\x18\x01 \x01(\x0b\x32\x1b.snapfaas.syscalls.ResponseH\x00\x12-\n\x07readKey\x18\x02 \x01(\x0b\x32\x1a.snapfaas.syscalls.ReadKeyH\x00\x12/\n\x08writeKey\x18\x03 \x01(\x0b\x32\x1b.snapfaas.syscalls.WriteKeyH\x00\x12=\n\x0fgetCurrentLabel\x18\x04 \x01(\x0b\x32\".snapfaas.syscalls.GetCurrentLabelH\x00\x12\x34\n\x0etaintWithLabel\x18\x05 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabelH\x00\x12\x33\n\ngithubRest\x18\x06 \x01(\x0b\x32\x1d.snapfaas.syscalls.GithubRestH\x00\x42\t\n\x07syscall*\x1d\n\x08HttpVerb\x12\x07\n\x03GET\x10\x00\x12\x08\n\x04POST\x10\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esyscalls.proto\x12\x11snapfaas.syscalls\"+\n\x06Invoke\x12\x10\n\x08\x66unction\x18\x01 \x01(\t\x12\x0f\n\x07payload\x18\x02 \x01(\t\"!\n\x0eInvokeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x1c\n\x06\x43lause\x12\x12\n\nprincipals\x18\x01 \x03(\t\"7\n\tComponent\x12*\n\x07\x63lauses\x18\x01 \x03(\x0b\x32\x19.snapfaas.syscalls.Clause\"\x8d\x01\n\x07\x44\x63Label\x12\x32\n\x07secrecy\x18\x01 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x00\x88\x01\x01\x12\x34\n\tintegrity\x18\x02 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x01\x88\x01\x01\x42\n\n\x08_secrecyB\x0c\n\n_integrity\"\x1a\n\x07Request\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x1b\n\x08Response\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x16\n\x07ReadKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\"/\n\x0fReadKeyResponse\x12\x12\n\x05value\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_value\"&\n\x08WriteKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\"#\n\x10WriteKeyResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"b\n\nGithubRest\x12)\n\x04verb\x18\x01 \x01(\x0e\x32\x1b.snapfaas.syscalls.HttpVerb\x12\r\n\x05route\x18\x02 \x01(\t\x12\x11\n\x04\x62ody\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_body\"2\n\x12GithubRestResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x0e\n\x06status\x18\x02 \x01(\r\"\x11\n\x0fGetCurrentLabel\"\xfc\x02\n\x07Syscall\x12/\n\x08response\x18\x01 \x01(\x0b\x32\x1b.snapfaas.syscalls.ResponseH\x00\x12-\n\x07readKey\x18\x02 \x01(\x0b\x32\x1a.snapfaas.syscalls.ReadKeyH\x00\x12/\n\x08writeKey\x18\x03 \x01(\x0b\x32\x1b.snapfaas.syscalls.WriteKeyH\x00\x12=\n\x0fgetCurrentLabel\x18\x04 \x01(\x0b\x32\".snapfaas.syscalls.GetCurrentLabelH\x00\x12\x34\n\x0etaintWithLabel\x18\x05 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabelH\x00\x12\x33\n\ngithubRest\x18\x06 \x01(\x0b\x32\x1d.snapfaas.syscalls.GithubRestH\x00\x12+\n\x06invoke\x18\x07 \x01(\x0b\x32\x19.snapfaas.syscalls.InvokeH\x00\x42\t\n\x07syscall*2\n\x08HttpVerb\x12\x07\n\x03GET\x10\x00\x12\x08\n\x04POST\x10\x01\x12\x07\n\x03PUT\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x04\x62\x06proto3')
 
 _HTTPVERB = DESCRIPTOR.enum_types_by_name['HttpVerb']
 HttpVerb = enum_type_wrapper.EnumTypeWrapper(_HTTPVERB)
 GET = 0
 POST = 1
+PUT = 2
+DELETE = 4
 
 
+_INVOKE = DESCRIPTOR.message_types_by_name['Invoke']
+_INVOKERESPONSE = DESCRIPTOR.message_types_by_name['InvokeResponse']
 _CLAUSE = DESCRIPTOR.message_types_by_name['Clause']
 _COMPONENT = DESCRIPTOR.message_types_by_name['Component']
 _DCLABEL = DESCRIPTOR.message_types_by_name['DcLabel']
@@ -36,6 +40,20 @@ _GITHUBREST = DESCRIPTOR.message_types_by_name['GithubRest']
 _GITHUBRESTRESPONSE = DESCRIPTOR.message_types_by_name['GithubRestResponse']
 _GETCURRENTLABEL = DESCRIPTOR.message_types_by_name['GetCurrentLabel']
 _SYSCALL = DESCRIPTOR.message_types_by_name['Syscall']
+Invoke = _reflection.GeneratedProtocolMessageType('Invoke', (_message.Message,), {
+  'DESCRIPTOR' : _INVOKE,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.Invoke)
+  })
+_sym_db.RegisterMessage(Invoke)
+
+InvokeResponse = _reflection.GeneratedProtocolMessageType('InvokeResponse', (_message.Message,), {
+  'DESCRIPTOR' : _INVOKERESPONSE,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.InvokeResponse)
+  })
+_sym_db.RegisterMessage(InvokeResponse)
+
 Clause = _reflection.GeneratedProtocolMessageType('Clause', (_message.Message,), {
   'DESCRIPTOR' : _CLAUSE,
   '__module__' : 'syscalls_pb2'
@@ -130,32 +148,36 @@ _sym_db.RegisterMessage(Syscall)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _HTTPVERB._serialized_start=968
-  _HTTPVERB._serialized_end=997
-  _CLAUSE._serialized_start=37
-  _CLAUSE._serialized_end=65
-  _COMPONENT._serialized_start=67
-  _COMPONENT._serialized_end=122
-  _DCLABEL._serialized_start=125
-  _DCLABEL._serialized_end=266
-  _REQUEST._serialized_start=268
-  _REQUEST._serialized_end=294
-  _RESPONSE._serialized_start=296
-  _RESPONSE._serialized_end=323
-  _READKEY._serialized_start=325
-  _READKEY._serialized_end=347
-  _READKEYRESPONSE._serialized_start=349
-  _READKEYRESPONSE._serialized_end=396
-  _WRITEKEY._serialized_start=398
-  _WRITEKEY._serialized_end=436
-  _WRITEKEYRESPONSE._serialized_start=438
-  _WRITEKEYRESPONSE._serialized_end=473
-  _GITHUBREST._serialized_start=475
-  _GITHUBREST._serialized_end=573
-  _GITHUBRESTRESPONSE._serialized_start=575
-  _GITHUBRESTRESPONSE._serialized_end=609
-  _GETCURRENTLABEL._serialized_start=611
-  _GETCURRENTLABEL._serialized_end=628
-  _SYSCALL._serialized_start=631
-  _SYSCALL._serialized_end=966
+  _HTTPVERB._serialized_start=1109
+  _HTTPVERB._serialized_end=1159
+  _INVOKE._serialized_start=37
+  _INVOKE._serialized_end=80
+  _INVOKERESPONSE._serialized_start=82
+  _INVOKERESPONSE._serialized_end=115
+  _CLAUSE._serialized_start=117
+  _CLAUSE._serialized_end=145
+  _COMPONENT._serialized_start=147
+  _COMPONENT._serialized_end=202
+  _DCLABEL._serialized_start=205
+  _DCLABEL._serialized_end=346
+  _REQUEST._serialized_start=348
+  _REQUEST._serialized_end=374
+  _RESPONSE._serialized_start=376
+  _RESPONSE._serialized_end=403
+  _READKEY._serialized_start=405
+  _READKEY._serialized_end=427
+  _READKEYRESPONSE._serialized_start=429
+  _READKEYRESPONSE._serialized_end=476
+  _WRITEKEY._serialized_start=478
+  _WRITEKEY._serialized_end=516
+  _WRITEKEYRESPONSE._serialized_start=518
+  _WRITEKEYRESPONSE._serialized_end=553
+  _GITHUBREST._serialized_start=555
+  _GITHUBREST._serialized_end=653
+  _GITHUBRESTRESPONSE._serialized_start=655
+  _GITHUBRESTRESPONSE._serialized_end=705
+  _GETCURRENTLABEL._serialized_start=707
+  _GETCURRENTLABEL._serialized_end=724
+  _SYSCALL._serialized_start=727
+  _SYSCALL._serialized_end=1107
 # @@protoc_insertion_point(module_scope)
