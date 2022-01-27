@@ -83,12 +83,25 @@ class Syscall():
         response= self._recv(syscalls_pb2.GithubRestResponse())
         return response
 
-    #def github_rest_put(self, route, body):
-    #    bodyJson = json.dumps(body)
-    #    req = syscalls_pb2.Syscall(githubRest = syscalls_pb2.GithubRest(verb = syscalls_pb2.HttpVerb.PUT, route = route, body = bodyJson))
-    #    self._send(req)
-    #    response= self._recv(syscalls_pb2.GithubRestResponse())
-    #    return response
+    def github_rest_put(self, route, body):
+        bodyJson = json.dumps(body)
+        req = syscalls_pb2.Syscall(githubRest = syscalls_pb2.GithubRest(verb = syscalls_pb2.HttpVerb.PUT, route = route, body = bodyJson))
+        self._send(req)
+        response= self._recv(syscalls_pb2.GithubRestResponse())
+        return response
+
+    def github_rest_delete(self, route, body):
+        bodyJson = json.dumps(body)
+        req = syscalls_pb2.Syscall(githubRest = syscalls_pb2.GithubRest(verb = syscalls_pb2.HttpVerb.DELETE, route = route, body = bodyJson))
+        self._send(req)
+        response= self._recv(syscalls_pb2.GithubRestResponse())
+        return response
+
+    def invoke(self, function, payload):
+        req = syscalls_pb2.Syscall(invoke = syscalls_pb2.Invoke(function = function, payload = payload))
+        self._send(req)
+        response= self._recv(syscalls_pb2.InvokeResponse())
+        return response.success
 
 # send over the boot completion signal
 for i in range(1, os.cpu_count()):
