@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esyscalls.proto\x12\x11snapfaas.syscalls\"+\n\x06Invoke\x12\x10\n\x08\x66unction\x18\x01 \x01(\t\x12\x0f\n\x07payload\x18\x02 \x01(\t\"!\n\x0eInvokeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x1c\n\x06\x43lause\x12\x12\n\nprincipals\x18\x01 \x03(\t\"7\n\tComponent\x12*\n\x07\x63lauses\x18\x01 \x03(\x0b\x32\x19.snapfaas.syscalls.Clause\"\x8d\x01\n\x07\x44\x63Label\x12\x32\n\x07secrecy\x18\x01 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x00\x88\x01\x01\x12\x34\n\tintegrity\x18\x02 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x01\x88\x01\x01\x42\n\n\x08_secrecyB\x0c\n\n_integrity\"\x1a\n\x07Request\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x1b\n\x08Response\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x16\n\x07ReadKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\"/\n\x0fReadKeyResponse\x12\x12\n\x05value\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_value\"&\n\x08WriteKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\"#\n\x10WriteKeyResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"b\n\nGithubRest\x12)\n\x04verb\x18\x01 \x01(\x0e\x32\x1b.snapfaas.syscalls.HttpVerb\x12\r\n\x05route\x18\x02 \x01(\t\x12\x11\n\x04\x62ody\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_body\"2\n\x12GithubRestResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x0e\n\x06status\x18\x02 \x01(\r\"\x11\n\x0fGetCurrentLabel\"\xfc\x02\n\x07Syscall\x12/\n\x08response\x18\x01 \x01(\x0b\x32\x1b.snapfaas.syscalls.ResponseH\x00\x12-\n\x07readKey\x18\x02 \x01(\x0b\x32\x1a.snapfaas.syscalls.ReadKeyH\x00\x12/\n\x08writeKey\x18\x03 \x01(\x0b\x32\x1b.snapfaas.syscalls.WriteKeyH\x00\x12=\n\x0fgetCurrentLabel\x18\x04 \x01(\x0b\x32\".snapfaas.syscalls.GetCurrentLabelH\x00\x12\x34\n\x0etaintWithLabel\x18\x05 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabelH\x00\x12\x33\n\ngithubRest\x18\x06 \x01(\x0b\x32\x1d.snapfaas.syscalls.GithubRestH\x00\x12+\n\x06invoke\x18\x07 \x01(\x0b\x32\x19.snapfaas.syscalls.InvokeH\x00\x42\t\n\x07syscall*2\n\x08HttpVerb\x12\x07\n\x03GET\x10\x00\x12\x08\n\x04POST\x10\x01\x12\x07\n\x03PUT\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x04\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0esyscalls.proto\x12\x11snapfaas.syscalls\"+\n\x06Invoke\x12\x10\n\x08\x66unction\x18\x01 \x01(\t\x12\x0f\n\x07payload\x18\x02 \x01(\t\"!\n\x0eInvokeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x1c\n\x06\x43lause\x12\x12\n\nprincipals\x18\x01 \x03(\t\"7\n\tComponent\x12*\n\x07\x63lauses\x18\x01 \x03(\x0b\x32\x19.snapfaas.syscalls.Clause\"\x8d\x01\n\x07\x44\x63Label\x12\x32\n\x07secrecy\x18\x01 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x00\x88\x01\x01\x12\x34\n\tintegrity\x18\x02 \x01(\x0b\x32\x1c.snapfaas.syscalls.ComponentH\x01\x88\x01\x01\x42\n\n\x08_secrecyB\x0c\n\n_integrity\"\x1a\n\x07Request\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x1b\n\x08Response\x12\x0f\n\x07payload\x18\x01 \x01(\t\"\x16\n\x07ReadKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\"/\n\x0fReadKeyResponse\x12\x12\n\x05value\x18\x01 \x01(\x0cH\x00\x88\x01\x01\x42\x08\n\x06_value\"&\n\x08WriteKey\x12\x0b\n\x03key\x18\x01 \x01(\x0c\x12\r\n\x05value\x18\x02 \x01(\x0c\"#\n\x10WriteKeyResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"b\n\nGithubRest\x12)\n\x04verb\x18\x01 \x01(\x0e\x32\x1b.snapfaas.syscalls.HttpVerb\x12\r\n\x05route\x18\x02 \x01(\t\x12\x11\n\x04\x62ody\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_body\"2\n\x12GithubRestResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x0e\n\x06status\x18\x02 \x01(\r\"\x11\n\x0fGetCurrentLabel\"\x16\n\x06\x46SRead\x12\x0c\n\x04path\x18\x01 \x01(\t\"%\n\x07\x46SWrite\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"W\n\x0b\x46SCreateDir\x12\x0f\n\x07\x62\x61seDir\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05label\x18\x03 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabel\"X\n\x0c\x46SCreateFile\x12\x0f\n\x07\x62\x61seDir\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05label\x18\x03 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabel\"\xc8\x04\n\x07Syscall\x12/\n\x08response\x18\x01 \x01(\x0b\x32\x1b.snapfaas.syscalls.ResponseH\x00\x12-\n\x07readKey\x18\x02 \x01(\x0b\x32\x1a.snapfaas.syscalls.ReadKeyH\x00\x12/\n\x08writeKey\x18\x03 \x01(\x0b\x32\x1b.snapfaas.syscalls.WriteKeyH\x00\x12=\n\x0fgetCurrentLabel\x18\x04 \x01(\x0b\x32\".snapfaas.syscalls.GetCurrentLabelH\x00\x12\x34\n\x0etaintWithLabel\x18\x05 \x01(\x0b\x32\x1a.snapfaas.syscalls.DcLabelH\x00\x12\x33\n\ngithubRest\x18\x06 \x01(\x0b\x32\x1d.snapfaas.syscalls.GithubRestH\x00\x12+\n\x06invoke\x18\x07 \x01(\x0b\x32\x19.snapfaas.syscalls.InvokeH\x00\x12+\n\x06\x66sRead\x18\x08 \x01(\x0b\x32\x19.snapfaas.syscalls.FSReadH\x00\x12-\n\x07\x66sWrite\x18\t \x01(\x0b\x32\x1a.snapfaas.syscalls.FSWriteH\x00\x12\x35\n\x0b\x66sCreateDir\x18\n \x01(\x0b\x32\x1e.snapfaas.syscalls.FSCreateDirH\x00\x12\x37\n\x0c\x66sCreateFile\x18\x0b \x01(\x0b\x32\x1f.snapfaas.syscalls.FSCreateFileH\x00\x42\t\n\x07syscall*2\n\x08HttpVerb\x12\x07\n\x03GET\x10\x00\x12\x08\n\x04POST\x10\x01\x12\x07\n\x03PUT\x10\x02\x12\n\n\x06\x44\x45LETE\x10\x04\x62\x06proto3')
 
 _HTTPVERB = DESCRIPTOR.enum_types_by_name['HttpVerb']
 HttpVerb = enum_type_wrapper.EnumTypeWrapper(_HTTPVERB)
@@ -39,6 +39,10 @@ _WRITEKEYRESPONSE = DESCRIPTOR.message_types_by_name['WriteKeyResponse']
 _GITHUBREST = DESCRIPTOR.message_types_by_name['GithubRest']
 _GITHUBRESTRESPONSE = DESCRIPTOR.message_types_by_name['GithubRestResponse']
 _GETCURRENTLABEL = DESCRIPTOR.message_types_by_name['GetCurrentLabel']
+_FSREAD = DESCRIPTOR.message_types_by_name['FSRead']
+_FSWRITE = DESCRIPTOR.message_types_by_name['FSWrite']
+_FSCREATEDIR = DESCRIPTOR.message_types_by_name['FSCreateDir']
+_FSCREATEFILE = DESCRIPTOR.message_types_by_name['FSCreateFile']
 _SYSCALL = DESCRIPTOR.message_types_by_name['Syscall']
 Invoke = _reflection.GeneratedProtocolMessageType('Invoke', (_message.Message,), {
   'DESCRIPTOR' : _INVOKE,
@@ -138,6 +142,34 @@ GetCurrentLabel = _reflection.GeneratedProtocolMessageType('GetCurrentLabel', (_
   })
 _sym_db.RegisterMessage(GetCurrentLabel)
 
+FSRead = _reflection.GeneratedProtocolMessageType('FSRead', (_message.Message,), {
+  'DESCRIPTOR' : _FSREAD,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.FSRead)
+  })
+_sym_db.RegisterMessage(FSRead)
+
+FSWrite = _reflection.GeneratedProtocolMessageType('FSWrite', (_message.Message,), {
+  'DESCRIPTOR' : _FSWRITE,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.FSWrite)
+  })
+_sym_db.RegisterMessage(FSWrite)
+
+FSCreateDir = _reflection.GeneratedProtocolMessageType('FSCreateDir', (_message.Message,), {
+  'DESCRIPTOR' : _FSCREATEDIR,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.FSCreateDir)
+  })
+_sym_db.RegisterMessage(FSCreateDir)
+
+FSCreateFile = _reflection.GeneratedProtocolMessageType('FSCreateFile', (_message.Message,), {
+  'DESCRIPTOR' : _FSCREATEFILE,
+  '__module__' : 'syscalls_pb2'
+  # @@protoc_insertion_point(class_scope:snapfaas.syscalls.FSCreateFile)
+  })
+_sym_db.RegisterMessage(FSCreateFile)
+
 Syscall = _reflection.GeneratedProtocolMessageType('Syscall', (_message.Message,), {
   'DESCRIPTOR' : _SYSCALL,
   '__module__' : 'syscalls_pb2'
@@ -148,8 +180,8 @@ _sym_db.RegisterMessage(Syscall)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _HTTPVERB._serialized_start=1109
-  _HTTPVERB._serialized_end=1159
+  _HTTPVERB._serialized_start=1555
+  _HTTPVERB._serialized_end=1605
   _INVOKE._serialized_start=37
   _INVOKE._serialized_end=80
   _INVOKERESPONSE._serialized_start=82
@@ -178,6 +210,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GITHUBRESTRESPONSE._serialized_end=705
   _GETCURRENTLABEL._serialized_start=707
   _GETCURRENTLABEL._serialized_end=724
-  _SYSCALL._serialized_start=727
-  _SYSCALL._serialized_end=1107
+  _FSREAD._serialized_start=726
+  _FSREAD._serialized_end=748
+  _FSWRITE._serialized_start=750
+  _FSWRITE._serialized_end=787
+  _FSCREATEDIR._serialized_start=789
+  _FSCREATEDIR._serialized_end=876
+  _FSCREATEFILE._serialized_start=878
+  _FSCREATEFILE._serialized_end=966
+  _SYSCALL._serialized_start=969
+  _SYSCALL._serialized_end=1553
 # @@protoc_insertion_point(module_scope)
