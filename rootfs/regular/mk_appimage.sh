@@ -62,10 +62,10 @@ if [ ! -f "$RUNTIME"/rootfs.sh ]; then
   exit 1
 fi
 
-if [ ! -f "$APP"/Makefile ]; then
-  echo "App \`$2\` not found."
-  exit 1
-fi
+#if [ ! -f "$APP"/Makefile ]; then
+#  echo "App \`$2\` not found."
+#  exit 1
+#fi
 
 RUNTIME=$(realpath $RUNTIME)
 MYDIR=$(dirname $(realpath $0))
@@ -75,28 +75,31 @@ fi
 
 make -C $RUNTIME
 make -C $MYDIR/../common
-make -C $APP
+#make -C $APP
 
 ## Create a temporary directory to mount the filesystem
 MTMPDIR=`mktemp -d`
-APPTMPDIR=`mktemp -d`
+#APPTMPDIR=`mktemp -d`
 
 ## Delete the output file if it exists, and create a new one formatted as
 ## an EXT4 filesystem.
 rm -f $OUTPUT
-dd if=/dev/zero of=$OUTPUT bs=1M count=1000
+truncate -s 500M $OUTPUT
 mkfs.ext4 $OUTPUT
 
 ## Mount the output file in the temporary directory
 sudo mount $OUTPUT $MTMPDIR
-sudo mount $APP/output.ext2 $APPTMPDIR
+#sudo mount $APP/output.ext2 $APPTMPDIR
 
 ## Execute the prelude, runtime script and postscript inside an Alpine docker container
 ## with the target root file system shared at `/my-rootfs` inside the container.
-cat $MYDIR/../common/prelude.sh $DEBUG $RUNTIME/rootfs.sh $MYDIR/../common/postscript.sh | docker run -i --rm -v $MTMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime -v $APPTMPDIR:/my-app alpine:3.10
+cat $MYDIR/../common/prelude.sh $DEBUG $RUNTIME/rootfs.sh $MYDIR/../common/postscript.sh | docker run -i --rm -v $MTMPDIR:/my-rootfs -v $MYDIR/../common:/common -v $RUNTIME:/runtime alpine:3.10
 
 ## Cleanup
+#sudo umount $APPTMPDIR
+#rm -Rf $APPTMPDIR
+
 sudo umount $MTMPDIR
 rm -Rf $MTMPDIR
-sudo umount $APPTMPDIR
-rm -Rf $APPTMPDIR
+#tar czf $RUNTIME.tar.gz $MTMPDIR
+
