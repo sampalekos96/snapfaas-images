@@ -35,8 +35,12 @@ class Syscall():
 
     def _send(self, req):
         reqData = req.SerializeToString()
-        self.sock.sendall(struct.pack(">I", len(reqData)))
-        self.sock.sendall(reqData)
+        try:
+            self.sock.sendall(struct.pack(">I", len(reqData)))
+            self.sock.sendall(reqData)
+        except:
+            while True:
+                continue
 
     def _recv(self, response):
         data = sock.recv(4, socket.MSG_WAITALL)
@@ -102,6 +106,19 @@ class Syscall():
         self._send(req)
         response= self._recv(syscalls_pb2.InvokeResponse())
         return response.success
+
+    def fswrite(self, path, data):
+        req = syscalls_pb2.Syscall(fsWrite = syscalls_pb2.FSWrite(path = path, data = data))
+        self._send(req)
+        response = self._recv(syscalls_pb2.WriteKeyResponse())
+        return response.success
+
+    def fsread(self, path):
+        req = syscalls_pb2.Syscall(fsRead = syscalls_pb2.FSRead(path = path))
+        self._send(req)
+        response = self._recv(syscalls_pb2.ReadKeyResponse())
+        return response.value
+
 
 # send over the boot completion signal
 for i in range(1, os.cpu_count()):
