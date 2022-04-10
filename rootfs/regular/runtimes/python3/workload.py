@@ -119,6 +119,17 @@ class Syscall():
         response = self._recv(syscalls_pb2.ReadKeyResponse())
         return response.value
 
+    def fscreate_file(self, baseDir, name, label):
+        req = syscalls_pb2.Syscall(invoke = syscalls_pb2.Invoke(baseDir = baseDir, name = name, label = label))
+        self._send(req)
+        response = self._recv(syscalls_pb2.DcLabel())
+        return response.value
+
+    def fscreate_dir(self, baseDir, name, label):
+        req = syscalls_pb2.Syscall(invoke = syscalls_pb2.Invoke(baseDir = baseDir, name = name, label = label))
+        self._send(req)
+        response = self._recv(syscalls_pb2.DcLabel())
+        return response.value
 
 # send over the boot completion signal
 for i in range(1, os.cpu_count()):
