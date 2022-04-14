@@ -19,6 +19,14 @@ hostaddr = (socket.VMADDR_CID_HOST, VSOCKPORT)
 
 app = import_module('workload')
 
+def sendall(sock, data):
+    totalsent = 0
+    while totalsent < len(data):
+        sent = sock.send(data[totalsent:(totalsent+1024)])
+        if sent == 0:
+            raise RuntimeError("socket connection broken")
+        totalsent = totalsent + sent
+
 def recvall(sock, n):
     # Helper function to recv n bytes or return None if EOF is hit
     data = bytearray()
@@ -35,12 +43,9 @@ class Syscall():
 
     def _send(self, req):
         reqData = req.SerializeToString()
-        try:
-            self.sock.sendall(struct.pack(">I", len(reqData)))
-            self.sock.sendall(reqData)
-        except:
-            while True:
-                continue
+        lenBuf = struct.pack(">I", len(reqData))
+        self.sock.sendall(lenBuf)
+        sendall(self.sock, reqData)
 
     def _recv(self, response):
         data = sock.recv(4, socket.MSG_WAITALL)
@@ -157,5 +162,5 @@ while True:
     responseData = response.SerializeToString()
 
     sock.sendall(struct.pack(">I", len(responseData)))
-    sock.sendall(responseData)
+    sendall(sock, responseData)
 
