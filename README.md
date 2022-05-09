@@ -1,3 +1,26 @@
+SnapFaaS uses `docker` to build both kinds of filesystems.
+The Linux distro used is Alpine Linux v3.10.
+
+## root filesystem
+
+Currently Python3.7 and Node.js10 are supported. To build a root filesystem, execute
+
+```bash
+cd snapfaas-images/separate
+# replace the path `/ssd/rootfs/python3.ext4` with the path at which you want to place the root filesystem.
+./mk_rt_images [python3|nodejs] /ssd/rootfs/[python3|nodejs].ext4
+```
+
+## application filesystem
+
+```bash
+# use hello as example
+cd snapfaas-images/appfs/hellopy2
+make
+```
+
+The command above generates `output.ext2` in the `hellopy2` directory.
+
 ## rootfs
 `rootfs` contains four subdirectories, namely `common`, `fullapp`, `regular`, and `snapfaas`.
 
