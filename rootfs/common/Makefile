@@ -1,6 +1,6 @@
 mkfile_path := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-all: nc-vsock ioctl factorial
+all: nc-vsock ioctl factorial virt_to_phys_user
 
 nc-vsock: nc-vsock.c
 	echo "apk add alpine-sdk linux-headers; gcc -O3 -static -o /common/nc-vsock /common/nc-vsock.c" | docker run -i --rm -v $(mkfile_path):/common alpine:3.10
@@ -11,7 +11,10 @@ ioctl: ioctl.c
 factorial: factorial.c
 	echo "apk add alpine-sdk linux-headers; gcc -static -o /common/factorial /common/factorial.c" | docker run -i --rm -v $(mkfile_path):/common alpine:3.10
 
+virt_to_phys_user: virt_to_phys_user.c
+	echo "apk add alpine-sdk linux-headers; gcc -static -o /common/virt_to_phys_user /common/virt_to_phys_user.c" | docker run -i --rm -v $(mkfile_path):/common alpine:3.10
+
 .PHONY: clean
 clean:
-	rm -f nc-vsock ioctl factorial
+	rm -f nc-vsock ioctl factorial virt_to_phys_user
 

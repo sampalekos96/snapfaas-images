@@ -18,8 +18,8 @@ hostaddr = (socket.VMADDR_CID_HOST, VSOCKPORT)
 
 # for language snapshot
 for i in range(1, os.cpu_count()):
-    Popen('taskset -c {} outl 124 0x3f0'.format(i), shell=True)
-run('taskset -c 0 outl 124 0x3f0', shell=True)
+    Popen('hwclock -w -f /dev/rtc0'.format(i), shell=True)
+run('hwclock -w -f /dev/rtc0', shell=True)
 
 # mount appfs and load application
 run(["mount", "-r", "/dev/vdb", "/srv"], executable="/bin/mount")
@@ -61,8 +61,8 @@ class Syscall():
 
 # for function diff snapshot
 for i in range(1, os.cpu_count()):
-    Popen('taskset -c %d outl 124 0x3f0'%(i), shell=True)
-run('taskset -c 0 outl 124 0x3f0', shell=True)
+    Popen('hwclock -w -f /dev/rtc0'%(i), shell=True)
+run('hwclock -w -f /dev/rtc0', shell=True)
 
 sock.connect(hostaddr)
 while True:

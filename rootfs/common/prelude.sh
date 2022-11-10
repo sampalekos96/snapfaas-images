@@ -1,13 +1,15 @@
-apk add openrc util-linux build-base ca-certificates rng-tools rng-tools-openrc
+apk update
+apk add openrc util-linux build-base ca-certificates rng-tools rng-tools-openrc dpkg
 
 #cp /common/outl /usr/bin/outl
 cp /common/setup-eth0.sh /usr/bin/setup-eth0.sh
 cp /common/ioctl /usr/bin/ioctl
+cp /common/virt_to_phys_user /usr/bin/virt_to_phys_user
 
 ## Add /dev and /proc file systems to openrc's boot
 rc-update add devfs boot
 rc-update add procfs boot
-rc-update add rngd boot
+#rc-update add rngd boot
 
 ## Create start script for that mounts the appfs and invokes whatever binary is in /srv/workload
 cat /runtime/workload.sh > /bin/workload
@@ -23,10 +25,10 @@ rc-update add serverless-workload default
 echo '/srv/lib:/lib:/usr/local/lib:/usr/lib' > /etc/ld-musl-$(uname -m).path
 
 ## Setup console
-ln -s agetty /etc/init.d/agetty.ttyS0
-echo ttyS0 > /etc/securetty
-rc-update add agetty.ttyS0 default
-rc-update add agetty.ttyS0 nonetwork
+#ln -s agetty /etc/init.d/agetty.ttyS0
+#echo ttyS0 > /etc/securetty
+#rc-update add agetty.ttyS0 default
+#rc-update add agetty.ttyS0 nonetwork
 
-echo agetty_options=\"-a root\" >> /etc/conf.d/agetty
+#echo agetty_options=\"-a root\" >> /etc/conf.d/agetty
 
